@@ -1,0 +1,57 @@
+.item {
+  margin: 10px 10px 0 0;
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  width: 100%;
+  .add {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 10px;
+    cursor: pointer;
+    width: 90px;
+    height: 35px;
+    transition: all 0.3s;
+    background: #edf6ff;
+    border-radius: 6px;
+    &:hover {
+      transition: all 0.3s;
+      background: rgb(215, 233, 255);
+    }
+    p {
+      color: #0091ff;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19px;
+      margin: 0;
+    }
+  }
+  .delete {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 12px;
+    gap: 10px;
+    cursor: pointer;
+    width: 90px;
+    height: 35px;
+
+    // background: #ffefef;
+    background-color: #e8e7e7;
+    border-radius: 6px;
+    .icon {
+      color: rgb(163, 163, 163);
+    }
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19px;
+      margin: 0;
+      color: rgb(163, 163, 163);
+    }
+  }
+}
