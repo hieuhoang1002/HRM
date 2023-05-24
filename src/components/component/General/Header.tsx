@@ -1,16 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "../../scss/General/Header.module.scss";
 import logo from "../../../img/logoGeneral.png";
 import intlImg from "../../../img/intl.png";
 import { IoIosArrowDown } from "react-icons/io";
-import ModalSignOut from "./ModalSignOut";
+import Profile from "./Profile";
+import axios from "axios";
+import { API } from "../../../configAPI";
 
 const Header = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
+  const id = localStorage.getItem("id");
+  const [userName, setUserName] = useState<string>("");
+  const [department, setDepartment] = useState<string>("");
+
+  const handleBlur = () => {
+    setShowModal(false);
+  };
 
   const handleShow = () => {
     setShowModal(!showModal);
+
+    axios({
+      method: "get",
+      baseURL: API,
+      url: `/user/${id}`,
+      headers: {
+        Authorization: localStorage.getItem("CheckToken"),
+      },
+    })
+      .then((res) => {
+        setUserName(res.data.data.username);
+        setDepartment(res.data.data.department.name);
+      })
+      .catch((err) => console.log(err));
   };
+
   return (
     <div className={styles.container}>
       <div>
@@ -23,7 +47,6 @@ const Header = () => {
       <div>
         <div className="dropdown-center">
           <button
-            // className="btn btn-secondary dropdown-toggle"
             className={styles.btnDropdown}
             type="button"
             data-bs-toggle="dropdown"
@@ -46,10 +69,10 @@ const Header = () => {
           </ul>
         </div>
 
-        <div className={styles.avatar} onClick={handleShow}>
+        <div className={styles.avatar} onClick={handleShow} onBlur={handleBlur}>
           HH
         </div>
-        {showModal && <ModalSignOut />}
+        {showModal && <Profile userName={userName} department={department} />}
       </div>
     </div>
   );

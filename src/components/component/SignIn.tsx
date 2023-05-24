@@ -9,6 +9,7 @@ import { API } from "../../configAPI";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useDispatch } from "react-redux";
 
 // require("dotenv").config({ path: ".env" });
 
@@ -34,6 +35,7 @@ const SignIn = () => {
     setShow(!show);
   };
 
+  const dispatch = useDispatch();
   // console.log(localStorage.getItem("token"));
 
   const handleLogin = () => {
@@ -48,10 +50,33 @@ const SignIn = () => {
       },
     })
       .then((res) => {
-        navigate("/General");
-        console.log(res);
-        localStorage.setItem("TestToken", "Bearer " + res.data.data.token);
+        localStorage.setItem("CheckToken", "Bearer " + res.data.data.token);
         toast("Đăng nhập thành công");
+        navigate("/General");
+
+        var userName = watch("username");
+
+        axios({
+          method: "get",
+          baseURL: API,
+          url: "/user",
+          headers: {
+            Authorization: "Bearer " + res.data.data.token,
+          },
+          data: {
+            username: userName,
+          },
+        })
+          .then((data) => {
+            const infoUser = data.data.data.data.find((user: any) => {
+              return user.username === userName;
+            });
+            dispatch({
+              type: "SIGNIN",
+              payload: infoUser.id,
+            });
+          })
+          .catch(() => {});
       })
       .catch((err) => toast("Đăng nhập thất bại"));
   };

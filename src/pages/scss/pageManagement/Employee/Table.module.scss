@@ -1,0 +1,28 @@
+.container {
+  table {
+    thead {
+      tr {
+        display: flex;
+        gap: 2px;
+        th {
+          font-weight: 500;
+          font-size: 14px;
+          line-height: 19px;
+          color: var(--color-black);
+
+          padding: 6px 10px;
+
+          width: 129px;
+          height: 31px;
+
+          background: #eceef0;
+
+          white-space: nowrap;
+          // overflow: hidden;
+        }
+      }
+    }
+    tbody {
+    }
+  }
+}

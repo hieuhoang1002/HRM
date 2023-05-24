@@ -4,21 +4,9 @@ import { API } from "../../../configAPI";
 import styles from "../../scss/pageManagement//Employee/Employee.module.scss";
 import { BsSearch } from "react-icons/bs";
 import Item from "./Item";
+import Table from "./Table";
 
 const Employee = () => {
-  useEffect(() => {
-    axios({
-      method: "get",
-      baseURL: API,
-      url: "/employee",
-      headers: {
-        Authorization: localStorage.getItem("TestToken"),
-      },
-    })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
-  }, []);
-
   return (
     <div className={styles.container}>
       <div>
@@ -33,6 +21,8 @@ const Employee = () => {
 
       <div className={styles.containertable}>
         <Item />
+
+        <Table />
       </div>
     </div>
   );
