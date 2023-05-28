@@ -11,6 +11,8 @@ const rootReducer = (state = initState, action: any) => {
         id: action.payload,
       };
     case "SIGNOUT":
+      localStorage.removeItem("id");
+      localStorage.removeItem("CheckToken");
       return {
         ...state,
         id: null,

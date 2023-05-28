@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import SignIn from "./components/component/SignIn";
 import ForgotPassword from "./components/component/ForgotPassword";
@@ -11,25 +11,31 @@ import Leave from "./pages/pageManagement/Leave";
 import Payroll from "./pages/pageManagement/Payroll";
 import User from "./pages/pageManagement/User";
 import Master from "./pages/pageManagement/Master";
+import PrivateRoute from "./PrivateRoute";
+import AddEmployee from "./pages/pageManagement/Employee/AddNewEmployee/AddEmployee";
 
 const ConfigRoutes = () => {
   return (
-    <div>
+    <Suspense fallback={<div>Loading.....</div>}>
       <Routes>
         <Route path={ROUTES.signIn} element={<SignIn />} />
         <Route path={ROUTES.forgotPassword} element={<ForgotPassword />} />
         <Route path={ROUTES.newPassWord} element={<NewPassWord />} />
 
-        <Route path={ROUTES.general} element={<General />}>
-          <Route path={ROUTES.attendance} element={<Attendance />} />
-          <Route path={ROUTES.leave} element={<Leave />} />
-          <Route path={ROUTES.payroll} element={<Payroll />} />
-          <Route path={ROUTES.employee} element={<Employee />} />
-          <Route path={ROUTES.user} element={<User />} />
-          <Route path={ROUTES.master} element={<Master />} />
+        <Route element={<PrivateRoute />}>
+          <Route path={ROUTES.general} element={<General />}>
+            <Route path={ROUTES.attendance} element={<Attendance />} />
+            <Route path={ROUTES.leave} element={<Leave />} />
+            <Route path={ROUTES.payroll} element={<Payroll />} />
+            <Route path={ROUTES.employee} element={<Employee />} />
+            <Route path={ROUTES.user} element={<User />} />
+            <Route path={ROUTES.master} element={<Master />} />
+
+            <Route path={ROUTES.addemployee} element={<AddEmployee />} />
+          </Route>
         </Route>
       </Routes>
-    </div>
+    </Suspense>
   );
 };
 

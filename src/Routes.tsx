@@ -3,6 +3,7 @@ export const ROUTES = {
   forgotPassword: "/forgotPassword",
   newPassWord: "/newPassWord",
 
+  // General
   general: "/General",
   attendance: "attendance",
   leave: "leave",
@@ -10,4 +11,7 @@ export const ROUTES = {
   employee: "employee",
   user: "user",
   master: "master",
+
+  // Employee
+  addemployee: "employee/create-or-update",
 };

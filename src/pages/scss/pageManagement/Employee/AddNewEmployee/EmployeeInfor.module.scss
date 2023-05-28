@@ -1,0 +1,26 @@
+.container {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .title {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 27px;
+      color: #11181c;
+    }
+    .required {
+      span {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 19px;
+        color: #687076;
+        display: flex;
+        align-items: center;
+        .star {
+          color: red;
+        }
+      }
+    }
+  }
+}

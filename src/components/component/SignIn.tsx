@@ -11,8 +11,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
 
-// require("dotenv").config({ path: ".env" });
-
 interface Inputs {
   username: string;
   password: string;
@@ -36,7 +34,6 @@ const SignIn = () => {
   };
 
   const dispatch = useDispatch();
-  // console.log(localStorage.getItem("token"));
 
   const handleLogin = () => {
     axios({
@@ -71,6 +68,7 @@ const SignIn = () => {
             const infoUser = data.data.data.data.find((user: any) => {
               return user.username === userName;
             });
+            // console.log(infoUser);
             dispatch({
               type: "SIGNIN",
               payload: infoUser.id,

@@ -8,17 +8,13 @@ import axios from "axios";
 import { API } from "../../../configAPI";
 
 const Header = () => {
-  const [showModal, setShowModal] = useState<boolean>(false);
   const id = localStorage.getItem("id");
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [department, setDepartment] = useState<string>("");
 
-  const handleBlur = () => {
-    setShowModal(false);
-  };
-
   const handleShow = () => {
-    setShowModal(!showModal);
+    setShowModal(true);
 
     axios({
       method: "get",
@@ -69,10 +65,16 @@ const Header = () => {
           </ul>
         </div>
 
-        <div className={styles.avatar} onClick={handleShow} onBlur={handleBlur}>
+        <div className={styles.avatar} onClick={handleShow}>
           HH
         </div>
-        {showModal && <Profile userName={userName} department={department} />}
+        {showModal && (
+          <Profile
+            userName={userName}
+            department={department}
+            handleremoveShow={() => setShowModal(false)}
+          />
+        )}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../scss/General/SideBar.module.scss";
 import { IMG } from "../../../img/General/ConfigImg";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   return (

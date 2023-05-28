@@ -1,10 +1,8 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import { API } from "../../../configAPI";
+import React from "react";
 import styles from "../../scss/pageManagement//Employee/Employee.module.scss";
 import { BsSearch } from "react-icons/bs";
 import Item from "./Item";
-import Table from "./Table";
+import Table from "./Table/Table";
 
 const Employee = () => {
   return (
@@ -21,7 +19,7 @@ const Employee = () => {
 
       <div className={styles.containertable}>
         <Item />
-
+        <hr />
         <Table />
       </div>
     </div>
