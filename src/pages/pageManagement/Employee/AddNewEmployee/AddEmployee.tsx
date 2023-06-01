@@ -5,6 +5,7 @@ import ContractInfor from "./ContractInfor";
 import EmployeeDetails from "./EmployeeDetails";
 import Salary from "./Salary";
 import Other from "./Other";
+import Add from "./Add";
 
 const menuItems = [
   { id: 0, label: "Employee Information", content: <EmployeeInfor /> },
@@ -21,7 +22,7 @@ const AddEmployee = () => {
     <div className={styles.container}>
       <div className={styles.header}>
         <p className={styles.title}>Employee Managenment</p>
-        <button className={styles.add}>Add</button>
+        <Add type="submit" />
       </div>
       <div className={styles.item}>
         {menuItems.map((item) => (
@@ -37,6 +38,10 @@ const AddEmployee = () => {
 
       <div className={styles.containerContent}>
         {menuItems[activeMenuItem].content}
+      </div>
+
+      <div className={styles.copyright}>
+        Copyright © 2022. All Rights Reserved
       </div>
     </div>
   );

@@ -2,6 +2,7 @@
   overflow: auto;
   width: 100%;
   height: 652px;
+  // height: 200px;
   text-align: start;
   display: flex;
   flex-direction: column;
@@ -15,6 +16,7 @@
     line-height: 19px;
     color: var(--color-black);
     gap: 2px;
+    // position: fixed;
     // width: 100%;
 
     .checkboxHeader {
@@ -35,13 +37,19 @@
         width: 14px;
         height: 14px;
       }
+      input[type="checkbox"]:checked {
+        accent-color: #30a46c;
+      }
     }
     .item {
       white-space: nowrap;
       padding: 6px 10px;
       height: 31px;
       background: #eceef0;
-      &:nth-child(2),
+      &:nth-child(2) {
+        width: 100px;
+        min-width: 100px;
+      }
       &:nth-child(3) {
         width: 69px;
         min-width: 69px;
@@ -94,39 +102,32 @@
         width: 103px;
         min-width: 103px;
       }
-      &:nth-child(21),
-      &:nth-child(23) {
+      &:nth-child(21) {
         width: 74px;
         min-width: 74px;
       }
+      &:nth-child(23) {
+        width: 120px;
+        min-width: 120px;
+      }
     }
   }
-
   .containerContent {
     display: flex;
     align-items: center;
     gap: 2px;
-    // height: 28px;
-    // line-height: 19px;
     color: var(--color-black);
-    // gap: 2px;
-
     .checkboxContent {
       padding: 6px 10px;
       height: 31px;
       width: 36px;
       min-width: 36px;
       background: #f3f3f3;
-      // line-height: 16px;
       display: flex;
       justify-content: center;
       align-items: center;
-      input {
-        border: 1px solid #000000;
-        background-color: #30a46c;
-        border-radius: 2px;
-        width: 14px;
-        height: 14px;
+      input[type="checkbox"]:checked {
+        accent-color: #30a46c;
       }
     }
     .nik {
@@ -134,10 +135,10 @@
       height: 31px;
       background: #f3f3f3;
       line-height: 16px;
-      color: red;
+      color: #687076;
       font-size: 14px;
-      width: 69px;
-      min-width: 69px;
+      width: 100px;
+      min-width: 100px;
     }
     .content {
       font-weight: 500;
@@ -206,10 +207,13 @@
         width: 103px;
         min-width: 103px;
       }
-      &:nth-child(21),
-      &:nth-child(23) {
+      &:nth-child(21) {
         width: 74px;
         min-width: 74px;
+      }
+      &:nth-child(23) {
+        width: 120px;
+        min-width: 120px;
       }
     }
   }

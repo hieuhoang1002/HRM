@@ -21,12 +21,20 @@ const SignIn = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState<boolean>(false);
 
+  // -------------------------------------------------------
+  // const [isActive, setIsActive] = useState<boolean>(false);
+  // const options = ["SBM", "DMF"];
+  // const [select, setSelect] = useState<string>("Select Factory");
+  // const [valueOption, setValueOption] = useState<number>();
+  // -------------------------------------------------------
+
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm<Inputs>();
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {};
 
   const handleShowPassWord = () => {
@@ -44,6 +52,9 @@ const SignIn = () => {
         username: watch("username"),
         password: watch("password"),
         company_id: watch("company_id"),
+        // -----------------------
+        // company_id: valueOption,
+        // -----------------------
       },
     })
       .then((res) => {
@@ -68,7 +79,6 @@ const SignIn = () => {
             const infoUser = data.data.data.data.find((user: any) => {
               return user.username === userName;
             });
-            // console.log(infoUser);
             dispatch({
               type: "SIGNIN",
               payload: infoUser.id,
@@ -126,9 +136,35 @@ const SignIn = () => {
             <option disabled selected hidden value="">
               Select Factory
             </option>
-            <option value="2">DMF</option>
             <option value="1">SBM</option>
+            <option value="2">DMF</option>
           </select>
+
+          {/* ----------------- */}
+          {/* <div
+            onClick={(e) => setIsActive(!isActive)}
+            {...register("company_id", { required: true })}
+          >
+            {select}
+          </div>
+
+          {isActive && (
+            <div>
+              {options.map((option) => (
+                <div
+                  data-value={select}
+                  onClick={(e) => {
+                    setValueOption(option === "SBM" ? 1 : 2);
+                    setSelect(option);
+                    setIsActive(false);
+                  }}
+                >
+                  {option}
+                </div>
+              ))}
+            </div>
+          )} */}
+          {/* ------------------------- */}
 
           {errors.company_id?.type === "required" && (
             <li>Factory is required</li>

@@ -20,7 +20,7 @@ const Profile = (props: propProfile) => {
     <div className={styles.x}>
       <div className={styles.container}>
         <div className={styles.userName}>
-          <div className={styles.avatar}>HH</div>
+          <div className={styles.avatar}> {props.userName.charAt(0)}</div>
 
           <div className={styles.name}>
             {id ? (

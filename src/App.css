@@ -4,12 +4,21 @@
   --color-red: rgb(254, 2, 2);
   --color-hover-btn: rgb(0, 180, 171);
 
-  --font-family: "SVN-Sofia Pro";
-  --font-style: normal;
+  /* --font-family: "SVN-Sofia Pro";
+  --font-style: normal; */
+}
+@font-face {
+  src: url("../public/fonts/SVN-SofiaPro-Medium.f29daefe0725dbae93c7.woff2")
+    format("woff2");
+  font-family: "SVN-Sofia Pro";
+  font-style: normal;
 }
 
 .App {
   text-align: center;
+  font-family: "SVN-Sofia Pro";
+  font-style: normal;
+  white-space: nowrap;
 }
 
 .App-logo {

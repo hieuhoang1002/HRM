@@ -3,6 +3,8 @@ import Banner from "./Banner";
 import styles from "../scss/ForgotPassword.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { API } from "../../configAPI";
 
 interface Inputs {
   email: string;
@@ -11,9 +13,25 @@ const ForgotPassword = () => {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {};
+
+  const email = watch("email");
+
+  const handleForgotPassWord = () => {
+    axios({
+      method: "post",
+      baseURL: API,
+      url: "/forgot-password",
+      data: {
+        email: email,
+      },
+    })
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className={styles.container}>
@@ -36,7 +54,9 @@ const ForgotPassword = () => {
           {errors.email?.type === "pattern" && <li>Invalid Email Address</li>}
         </>
 
-        <button type="submit">Confirm & Send OTP</button>
+        <button type="submit" onClick={handleForgotPassWord}>
+          Confirm & Send OTP
+        </button>
 
         <div className={styles.backSignIn}>
           <Link to="/">Back to Sign In</Link>
