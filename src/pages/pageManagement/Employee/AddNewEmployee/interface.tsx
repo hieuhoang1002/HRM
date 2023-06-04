@@ -1,4 +1,5 @@
 export interface IFormValues {
+  // EmployeeInfor
   nik: string;
   name: string;
   gender: number;
@@ -19,4 +20,14 @@ export interface IFormValues {
   family: string;
   safety: string;
   health: string;
+
+  // ContractInfor
+  dateStart: string;
+
+  // Salary
+  salary: string;
+  salaryAudit: string;
+  safetyAmount: string;
+  healthyAmount: string;
+  mealAllowance: string;
 }

@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/ContractInfor.module.scss";
 import InputText from "../../../../components/InputText";
 import { BsUpload } from "react-icons/bs";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { IFormValues } from "./interface";
 
 const ContractInfor = () => {
-  const [x, setX] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IFormValues>();
 
-  const handleX = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setX(e.target.value);
-  };
+  const onSubmit: SubmitHandler<IFormValues> = (data) => {};
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -22,18 +27,19 @@ const ContractInfor = () => {
 
       <hr />
 
-      <form action="" className={styles.form}>
+      <form action="" className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <div>
           <div>
             <label htmlFor="dateStart">
               Date Start<span>*</span>
             </label>
-            {/* <InputText
+            <InputText
+              placeholder=""
               type="date"
-              value={x}
-              onChange={handleX}
-              id="dateStart"
-            /> */}
+              register={register}
+              label="dateStart"
+              required={false}
+            />
           </div>
 
           <div>

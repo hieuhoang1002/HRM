@@ -2,7 +2,7 @@ import React from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/Add.module.scss";
 
 type propsType = {
-  type: any;
+  onSubmit: any;
 } & React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
@@ -11,7 +11,11 @@ type propsType = {
 const Add = (props: propsType) => {
   return (
     <div>
-      <button className={styles.container}>Add</button>
+      <form action="" onSubmit={props.onSubmit}>
+        <button className={styles.container} type="submit">
+          Add
+        </button>
+      </form>
     </div>
   );
 };

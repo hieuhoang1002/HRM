@@ -6,6 +6,8 @@ import EmployeeDetails from "./EmployeeDetails";
 import Salary from "./Salary";
 import Other from "./Other";
 import Add from "./Add";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { IFormValues } from "./interface";
 
 const menuItems = [
   { id: 0, label: "Employee Information", content: <EmployeeInfor /> },
@@ -18,11 +20,21 @@ const menuItems = [
 const AddEmployee = () => {
   const [activeMenuItem, setActiveMenuItem] = useState(0);
 
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   watch,
+  //   formState: { errors },
+  // } = useForm<IFormValues>();
+
+  // const onSubmit: SubmitHandler<IFormValues> = (data) => console.log(data);
+
   return (
     <div className={styles.container}>
+      {/* <form action="" onSubmit={handleSubmit(onSubmit)}> */}
       <div className={styles.header}>
         <p className={styles.title}>Employee Managenment</p>
-        <Add type="submit" />
+        {/* <Add /> */}
       </div>
       <div className={styles.item}>
         {menuItems.map((item) => (
@@ -39,6 +51,7 @@ const AddEmployee = () => {
       <div className={styles.containerContent}>
         {menuItems[activeMenuItem].content}
       </div>
+      {/* </form> */}
 
       <div className={styles.copyright}>
         Copyright © 2022. All Rights Reserved
