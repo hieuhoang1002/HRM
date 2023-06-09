@@ -103,6 +103,25 @@ const SideBar = () => {
           </div>
         </div>
       </NavLink>
+
+      {/* ================================= */}
+      <p className={styles.advance}>Advance</p>
+
+      <NavLink
+        to="globalsettings"
+        className={({ isActive, isPending }) =>
+          isPending ? "pending" : isActive ? styles.active : ""
+        }
+      >
+        <div className={styles.item}>
+          <div className={styles.icon}>
+            <img src={IMG.Icon7} alt="" className={styles.img} />
+          </div>
+          <div className={styles.title}>
+            <p>Global Settings</p>
+          </div>
+        </div>
+      </NavLink>
     </div>
   );
 };

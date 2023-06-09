@@ -34,20 +34,6 @@ const Header = () => {
 
   const handleShow = () => {
     setShowModal(true);
-
-    // axios({
-    //   method: "get",
-    //   baseURL: API,
-    //   url: `/user/${id}`,
-    //   headers: {
-    //     Authorization: localStorage.getItem("CheckToken"),
-    //   },
-    // })
-    //   .then((res) => {
-    //     setUserName(res.data.data.username);
-    //     setDepartment(res.data.data.department.name);
-    //   })
-    //   .catch((err) => console.log(err));
   };
 
   return (
@@ -56,7 +42,7 @@ const Header = () => {
         <div className={styles.logo}>
           <img src={logo} alt="" />
         </div>
-        <div className={styles.textName}>HR Managenment System</div>
+        <div className={styles.textName}>HR Management System</div>
       </div>
 
       <div>

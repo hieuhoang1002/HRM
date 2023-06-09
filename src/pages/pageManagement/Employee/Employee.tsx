@@ -3,13 +3,24 @@ import styles from "../../scss/pageManagement//Employee/Employee.module.scss";
 import { BsSearch } from "react-icons/bs";
 import Item from "./Item";
 import Table from "./Table/Table";
+import { BsChevronRight } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 const Employee = () => {
   const [search, setSearch] = useState<string>("");
 
   return (
     <div className={styles.container}>
-      <div>
+      <div className={styles.links}>
+        <Link to="/General" className={styles.general}>
+          General
+        </Link>
+
+        <BsChevronRight className={styles.icon} />
+
+        <p>Employee Management</p>
+      </div>
+      <div className={styles.titleAndsearch}>
         <p className={styles.title}>Employee Managenment</p>
         <div className={styles.search}>
           <div>
@@ -25,8 +36,8 @@ const Employee = () => {
       </div>
 
       <div className={styles.containertable}>
-        <Item />
-        <hr />
+        {/* <Item /> */}
+        {/* <hr /> */}
         <Table search={search} />
       </div>
 

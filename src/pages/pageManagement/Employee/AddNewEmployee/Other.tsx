@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { BsUpload } from "react-icons/bs";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/Other.module.scss";
 import InputText from "../../../../components/InputText";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
@@ -28,10 +28,8 @@ const Other = () => {
   const animatedComponents = makeAnimated();
   const {
     register,
-    handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<IFormValues>();
+  } = useFormContext<IFormValues>();
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {};
 
@@ -80,7 +78,7 @@ const Other = () => {
 
       <hr />
 
-      <form action="" className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.form}>
         <div>
           <div>
             <label htmlFor="dateStart">Grade</label>
@@ -126,9 +124,9 @@ const Other = () => {
             />
           </div>
         </div>
-      </form>
+      </div>
 
-      <form action="" className={styles.form}>
+      <div className={styles.form}>
         <div className={styles.container}>
           <div className={styles.header}>
             <span>Document</span>
@@ -165,7 +163,7 @@ const Other = () => {
 
         {/* <button type="submit">BTN</button> */}
         {/* <Add type="submit" /> */}
-      </form>
+      </div>
     </div>
   );
 };

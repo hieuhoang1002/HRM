@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EmployeeDetails.module.scss";
+import { useFormContext } from "react-hook-form";
+import { IFormValues } from "./interface";
 
 const EmployeeDetails = () => {
   const [checked, setChecked] = useState<boolean>(true);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<IFormValues>();
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -16,67 +22,55 @@ const EmployeeDetails = () => {
 
       <hr />
 
-      <form action="" className={styles.form}>
+      <div className={styles.form}>
         <div className={styles.containerInput}>
           <div>
-            <label htmlFor="tel">Department</label>
-            <select className={styles.select}>
+            <label htmlFor="department">Department</label>
+            <select
+              className={styles.select}
+              {...register("department", { required: true })}
+            >
               <option value="" disabled selected style={{ display: "none" }}>
                 Choose Department
               </option>
               <option value="" className={styles.male}>
                 N/A
               </option>
-              <option value="developer" className={styles.parttime}>
+              <option value="4" className={styles.parttime}>
                 Developer
               </option>
-              <option value="qualityControjk" className={styles.contract}>
+              <option value="3" className={styles.contract}>
                 Quality Controjk
               </option>
-              <option value="eaintenance" className={styles.contract}>
+              <option value="2" className={styles.contract}>
                 Maintenance
               </option>
-              <option value="development" className={styles.contract}>
+              <option value="1" className={styles.contract}>
                 Business Development
               </option>
             </select>
           </div>
 
           <div>
-            <label htmlFor="tel">Position</label>
-            <select className={styles.select}>
+            <label htmlFor="positionId">Position</label>
+            <select
+              className={styles.select}
+              {...register("positionId", { required: true })}
+            >
               <option value="" disabled selected style={{ display: "none" }}>
                 Choose Position
               </option>
               <option value="" className={styles.male}>
                 N/A
               </option>
-              <option value="junior" className={styles.parttime}>
+              <option value="3" className={styles.parttime}>
                 Junior
               </option>
-              <option value="vice" className={styles.contract}>
+              <option value="2" className={styles.contract}>
                 Vice manager
               </option>
-              <option value="mangegev" className={styles.contract}>
+              <option value="1" className={styles.contract}>
                 Manager
-              </option>
-            </select>
-          </div>
-
-          <div>
-            <label htmlFor="tel">Shift</label>
-            <select className={styles.select}>
-              <option value="" disabled selected style={{ display: "none" }}>
-                Choose Shift
-              </option>
-              <option value="" className={styles.male}>
-                N/A
-              </option>
-              <option value="junior" className={styles.parttime}>
-                1
-              </option>
-              <option value="vice" className={styles.contract}>
-                2
               </option>
             </select>
           </div>
@@ -100,7 +94,7 @@ const EmployeeDetails = () => {
             <span>Attendance Allowance Paid</span>
           </div>
         </div>
-      </form>
+      </div>
     </div>
   );
 };

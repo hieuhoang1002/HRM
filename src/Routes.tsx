@@ -12,6 +12,9 @@ export const ROUTES = {
   user: "user",
   master: "master",
 
+  // Advance
+  globalsettings: "globalsettings",
+
   // Employee
   addemployee: "employee/create-or-update",
 };

@@ -13,10 +13,11 @@ import User from "./pages/pageManagement/User";
 import Master from "./pages/pageManagement/Master";
 import PrivateRoute from "./PrivateRoute";
 import AddEmployee from "./pages/pageManagement/Employee/AddNewEmployee/AddEmployee";
+import GlobalSettings from "./pages/pageManagement/GlobalSettings";
 
 const ConfigRoutes = () => {
   return (
-    <Suspense fallback={<div>Loading.....</div>}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path={ROUTES.signIn} element={<SignIn />} />
         <Route path={ROUTES.forgotPassword} element={<ForgotPassword />} />
@@ -31,12 +32,17 @@ const ConfigRoutes = () => {
             <Route path={ROUTES.user} element={<User />} />
             <Route path={ROUTES.master} element={<Master />} />
 
+            <Route path={ROUTES.globalsettings} element={<GlobalSettings />} />
+
             <Route path={ROUTES.addemployee} element={<AddEmployee />} />
           </Route>
         </Route>
       </Routes>
     </Suspense>
   );
+};
+const Loading = () => {
+  return <h2 style={{ background: "red" }}>abcd</h2>;
 };
 
 export default ConfigRoutes;

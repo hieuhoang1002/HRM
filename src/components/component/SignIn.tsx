@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from "react";
+import React, { useState } from "react";
 import styles from "../scss/SignIn.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -10,6 +10,13 @@ import { API } from "../../configAPI";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch } from "react-redux";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+} from "@material-ui/core";
 
 interface Inputs {
   username: string;
@@ -20,13 +27,6 @@ interface Inputs {
 const SignIn = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState<boolean>(false);
-
-  // -------------------------------------------------------
-  // const [isActive, setIsActive] = useState<boolean>(false);
-  // const options = ["SBM", "DMF"];
-  // const [select, setSelect] = useState<string>("Select Factory");
-  // const [valueOption, setValueOption] = useState<number>();
-  // -------------------------------------------------------
 
   const {
     register,
@@ -45,7 +45,7 @@ const SignIn = () => {
 
   const handleLogin = () => {
     axios({
-      method: "post",
+      method: "POST",
       baseURL: API,
       url: "/login",
       data: {
@@ -65,7 +65,7 @@ const SignIn = () => {
         var userName = watch("username");
 
         axios({
-          method: "get",
+          method: "GET",
           baseURL: API,
           url: "/user",
           headers: {
@@ -115,7 +115,11 @@ const SignIn = () => {
             <input
               type={show ? "text" : "password"}
               id="password"
-              {...register("password", { required: true, minLength: 6 })}
+              {...register("password", {
+                required: true,
+                minLength: 8,
+                maxLength: 16,
+              })}
             />
             <p className={styles.showPassword} onClick={handleShowPassWord}>
               {show ? <FaEye /> : <FaEyeSlash />}
@@ -125,57 +129,45 @@ const SignIn = () => {
           {errors.password?.type === "required" && (
             <li>PassWord is required</li>
           )}
-          {errors.password?.type === "minLength" && (
-            <li>Password mus be 6 characters long</li>
-          )}
+          {errors.password?.type <= "minLength" &&
+            errors.password?.type >= "maxLength" && (
+              <li>Password from 8 to 16 characters</li>
+            )}
         </>
 
-        <>
-          <label htmlFor="company_id">Factory:</label>
-          <select id="" {...register("company_id", { required: true })}>
-            <option disabled selected hidden value="">
-              Select Factory
-            </option>
-            <option value="1">SBM</option>
-            <option value="2">DMF</option>
-          </select>
-
-          {/* ----------------- */}
-          {/* <div
-            onClick={(e) => setIsActive(!isActive)}
+        {/* <label htmlFor="company_id">Factory:</label> */}
+        <FormControl fullWidth className={styles.formControl}>
+          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            className={styles.select}
+            label="Factory"
             {...register("company_id", { required: true })}
           >
-            {select}
-          </div>
-
-          {isActive && (
-            <div>
-              {options.map((option) => (
-                <div
-                  data-value={select}
-                  onClick={(e) => {
-                    setValueOption(option === "SBM" ? 1 : 2);
-                    setSelect(option);
-                    setIsActive(false);
-                  }}
-                >
-                  {option}
-                </div>
-              ))}
-            </div>
-          )} */}
-          {/* ------------------------- */}
-
+            {/* <MenuItem className={styles.menuItem} value="">
+                <em>None</em>
+              </MenuItem> */}
+            <MenuItem className={styles.menuItem} value={1}>
+              SBM
+            </MenuItem>
+            <MenuItem className={styles.menuItem} value={2}>
+              DMF
+            </MenuItem>
+          </Select>
           {errors.company_id?.type === "required" && (
             <li>Factory is required</li>
           )}
-        </>
+        </FormControl>
 
-        <Suspense fallback={<Loading />}>
-          <button type="submit" onClick={handleLogin}>
-            Sign In
-          </button>
-        </Suspense>
+        <Button
+          type="submit"
+          onClick={handleLogin}
+          variant="contained"
+          className={styles.button}
+        >
+          Sign In
+        </Button>
 
         <div className={styles.forgotPassword}>
           <Link to="/forgotPassword">Forgot Your Password?</Link>
@@ -185,17 +177,8 @@ const SignIn = () => {
       {/* <Link to="/newPassWord">
         <button>NewPassWord</button>
       </Link> */}
-
-      {/* <Suspense fallback={<Loading />}>
-        <Link to="/newPassWord">
-          <button>NewPassWord</button>
-        </Link>
-      </Suspense> */}
     </div>
   );
-};
-const Loading = () => {
-  return <h2 style={{ background: "red" }}>abcd</h2>;
 };
 
 export default SignIn;

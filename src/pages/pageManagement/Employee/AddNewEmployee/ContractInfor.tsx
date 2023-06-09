@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/ContractInfor.module.scss";
 import InputText from "../../../../components/InputText";
 import { BsUpload } from "react-icons/bs";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
 
 const ContractInfor = () => {
   const {
     register,
-    handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm<IFormValues>();
-
-  const onSubmit: SubmitHandler<IFormValues> = (data) => {};
+  } = useFormContext<IFormValues>();
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -27,7 +23,7 @@ const ContractInfor = () => {
 
       <hr />
 
-      <form action="" className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+      <div className={styles.form}>
         <div>
           <div>
             <label htmlFor="dateStart">
@@ -43,10 +39,13 @@ const ContractInfor = () => {
           </div>
 
           <div>
-            <label htmlFor="tel">
+            <label htmlFor="employeeType">
               Employee Type<span>*</span>
             </label>
-            <select className={styles.select}>
+            <select
+              className={styles.select}
+              {...register("employeeType", { required: true })}
+            >
               <option value="" disabled selected style={{ display: "none" }}>
                 Choose Type
               </option>
@@ -62,9 +61,9 @@ const ContractInfor = () => {
             </select>
           </div>
         </div>
-      </form>
+      </div>
 
-      <form action="" className={styles.form}>
+      <div className={styles.form}>
         <div className={styles.contract}>
           <div className={styles.header}>
             <span>CONTRACT:</span>
@@ -125,7 +124,7 @@ const ContractInfor = () => {
 
         {/* <button type="submit">BTN</button> */}
         {/* <Add type="submit" /> */}
-      </form>
+      </div>
     </div>
   );
 };

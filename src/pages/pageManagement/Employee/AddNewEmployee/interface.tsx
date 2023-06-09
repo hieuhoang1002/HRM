@@ -1,6 +1,6 @@
 export interface IFormValues {
   // EmployeeInfor
-  nik: string;
+  // nik: string;
   name: string;
   gender: number;
   motherName: string;
@@ -17,12 +17,17 @@ export interface IFormValues {
   bankCard: string;
   bankAcc: string;
   bankName: string;
-  family: string;
+  familyCard: string;
   safety: string;
   health: string;
 
   // ContractInfor
   dateStart: string;
+  employeeType: string;
+
+  // Employee Details
+  positionId: number;
+  department: number;
 
   // Salary
   salary: string;
