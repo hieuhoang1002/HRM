@@ -3,15 +3,15 @@ import styles from "../../../scss/pageManagement/Employee/Table/Table.module.scs
 import axios from "axios";
 import { API } from "../../../../configAPI";
 import { DATAS, TH } from "./configTable";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { TextField, Checkbox, FormControlLabel, Box } from "@material-ui/core";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Checkbox } from "@material-ui/core";
 import {
   AiOutlineDoubleLeft,
   AiOutlineLeft,
   AiOutlineRight,
   AiOutlineDoubleRight,
 } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Item from "../Item";
 
 interface data {
@@ -21,12 +21,13 @@ interface data {
   gender: string;
   name: string;
   card_number: string;
-  account_number: string;
+  bank_account_no: string;
   family_card_number: string;
   marriage_code: string;
   mother_name: string;
   dob: string;
   home_address_1: string;
+  home_address_2: string;
   nc_id: string;
   contract_start_date: string;
   contract_first: string;
@@ -81,12 +82,13 @@ const Table = (props: propsTable) => {
       gender: "",
       name: "",
       card_number: "",
-      account_number: "",
+      bank_account_no: "",
       family_card_number: "",
       marriage_code: "",
       mother_name: "",
       dob: "",
       home_address_1: "",
+      home_address_2: "",
       nc_id: "",
       contract_start_date: "",
       contract_first: "",
@@ -152,12 +154,13 @@ const Table = (props: propsTable) => {
             gender: item.gender,
             name: item.name,
             card_number: item.card_number,
-            account_number: item.account_number,
+            bank_account_no: item.bank_account_no,
             family_card_number: item.family_card_number,
             marriage_code: item.marriage_code,
             mother_name: item.mother_name,
             dob: item.dob,
             home_address_1: item.home_address_1,
+            home_address_2: item.home_address_2,
             nc_id: item.nc_id,
             contract_start_date: item.contract_start_date,
             contract_first: item.contract_first,
@@ -213,12 +216,13 @@ const Table = (props: propsTable) => {
             gender: item.gender,
             name: item.name,
             card_number: item.card_number,
-            account_number: item.account_number,
+            bank_account_no: item.bank_account_no,
             family_card_number: item.family_card_number,
             marriage_code: item.marriage_code,
             mother_name: item.mother_name,
             dob: item.dob,
             home_address_1: item.home_address_1,
+            home_address_2: item.home_address_2,
             nc_id: item.nc_id,
             contract_start_date: item.contract_start_date,
             contract_first: item.contract_first,
@@ -311,9 +315,6 @@ const Table = (props: propsTable) => {
   // =============================================================
 
   // Handle Checkbox
-  const [checkAll, setCheckAll] = useState<boolean>(false);
-  const [checkItem, setCheckItem] = useState<boolean>(false);
-  const [checkboxChange, setCheckboxChange] = useState<boolean>(false);
 
   const [arrId, setArrId] = useState([]);
 
@@ -327,8 +328,6 @@ const Table = (props: propsTable) => {
         return { ...item, isChecked: checked };
       });
       setRes(arr);
-      // setCheckAll(checked);
-      // setCheckItem(checked);
 
       setArrId(checked === true ? res.map((item) => item.id) : []);
     } else {
@@ -337,35 +336,23 @@ const Table = (props: propsTable) => {
       );
       setRes(arr);
 
-      // setCheckAll(checked);
-      // setCheckItem(checked);
-      // setArrId(checked === true ? id : checked);
       if (checked === true) {
-        // if (!arrId.includes(Number(id))) {
         const newArray = [...arrId, Number(id)];
         setArrId(newArray);
-
-        // }
       } else {
-        console.log("error");
+        // console.log("error");
         let index = arrId.indexOf(Number(id));
         // console.log(index);
         if (index !== -1) {
           arrId.splice(index, 1);
         }
       }
-      // console.log(id);
     }
   };
 
   useEffect(() => {
     setActiveDelete(arrId.length);
   }, [arrId.length]);
-  // console.log(checkAll);
-  // console.log(checkItem);
-  // useEffect(() => {
-  //   setArrId(arrId.map((item) => item.toString()));
-  // }, [arrId.length]);
 
   // console.log(arrId);
 
@@ -399,12 +386,13 @@ const Table = (props: propsTable) => {
                 gender: item.gender,
                 name: item.name,
                 card_number: item.card_number,
-                account_number: item.account_number,
+                bank_account_no: item.bank_account_no,
                 family_card_number: item.family_card_number,
                 marriage_code: item.marriage_code,
                 mother_name: item.mother_name,
                 dob: item.dob,
                 home_address_1: item.home_address_1,
+                home_address_2: item.home_address_2,
                 nc_id: item.nc_id,
                 contract_start_date: item.contract_start_date,
                 contract_first: item.contract_first,
@@ -443,12 +431,21 @@ const Table = (props: propsTable) => {
       .catch((err) => console.log(err));
   };
 
+  // console.log(res);
+
+  const handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    // console.log(e.currentTarget.dataset.id);
+    const id = Number(e.currentTarget.dataset.id);
+    window.open(`employee/create-or-update/${id}`, "_self");
+  };
+
   return (
     <div className={styles.container}>
       <Item
         handleDeleteChange={handleDeleteChange}
         activeDelete={activeDelete}
       />
+      {/* <div style={{ color: "black" }}>{idPage}</div> */}
       <hr />
       <div className={styles.containerTable}>
         <div className={styles.containerHeader}>
@@ -478,11 +475,17 @@ const Table = (props: propsTable) => {
         {res
           ? res
               .filter((user) => user.name.toLowerCase().includes(props.search))
-              .map((item: data, i: number) => (
-                <div className={styles.containerContent} key={"table" + i}>
+              .map((item: data, i: any) => (
+                // <Link to={`create-or-update/${item.id}`}>
+                <div
+                  className={styles.containerContent}
+                  key={"table" + i}
+                  onDoubleClick={handleDoubleClick}
+                  data-id={item["id"]}
+                >
                   <div className={styles.checkboxContent}>
                     <Checkbox
-                      id={item["id"]}
+                      id={item["id"].toString()}
                       name={item["staff_id"]}
                       color="secondary"
                       checked={item?.isChecked || false}
@@ -493,7 +496,7 @@ const Table = (props: propsTable) => {
                   <div className={styles.nik}>{item["staff_id"]}</div>
 
                   <div className={styles.content}>
-                    {parseInt(item["gender"]) === 0 ? "Nam" : "Nữ"}
+                    {parseInt(item["gender"]) === 0 ? "Male" : "Female"}
                   </div>
                   {DATAS.map(
                     (data, i): React.ReactNode => (
@@ -503,6 +506,7 @@ const Table = (props: propsTable) => {
                     )
                   )}
                 </div>
+                // </Link>
               ))
           : ""}
       </div>

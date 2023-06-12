@@ -59,10 +59,34 @@
               color: red;
             }
           }
-
-          .select {
+          .input {
             align-items: center;
             padding: 8px 12px;
+            gap: 10px;
+
+            width: 270px;
+            height: 46px;
+
+            background: #d5d5d5;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 150%;
+
+            letter-spacing: -0.01em;
+
+            color: #11181c;
+          }
+          .input::placeholder {
+            font-weight: 400;
+            font-size: 16px;
+          }
+
+          .select {
+            text-align: start;
 
             width: 270px;
             height: 46px;
@@ -78,10 +102,9 @@
 
             color: #11181c;
             outline: none;
-
-            option {
-              background-color: white;
-            }
+          }
+          fieldset {
+            border-style: none;
           }
         }
       }

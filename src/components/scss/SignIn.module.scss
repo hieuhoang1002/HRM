@@ -51,50 +51,25 @@
       color: #687076;
 
       outline: none;
-
-      // option {
-      //   display: flex;
-      //   flex-direction: column;
-      //   align-items: flex-start;
-      //   padding: 10px;
-      //   gap: 4px;
-
-      //   position: absolute;
-      //   width: 300px;
-      //   height: 104px;
-      //   left: 24px;
-      //   top: 269px;
-
-      //   background: #ffffff;
-      //   border: 1px solid #dfe3e6;
-      //   box-shadow: 0px 5px 15px #eceef0;
-      //   border-radius: 8px;
-      // }
     }
 
-    // .formControl {
-    //   .select {
-    //     text-align: start;
-    //     padding: 8px 12px;
-    //     width: 300px;
-    //     height: 46px;
-    //     background: #f1f3f5;
-    //     border: none;
-    //     border-radius: 6px;
-    //     font-size: 16px;
-    //     color: #687076;
-    //     &::before {
-    //       content: none;
-    //     }
-    //     &::after {
-    //       content: none;
-    //     }
-    //   }
-
-    //   li {
-    //     text-align: start;
-    //   }
-    // }
+    .formControl {
+      .select {
+        text-align: start;
+        width: 300px;
+        height: 46px;
+        background: #f1f3f5;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        color: #687076;
+        outline: none;
+        //
+      }
+      fieldset {
+        border-style: none;
+      }
+    }
 
     .showPassword {
       margin: 0;
@@ -159,53 +134,4 @@
       }
     }
   }
-  //   div {
-  //     div {
-  //       &:nth-child(3) {
-  //         margin: -8px -12px;
-  //         min-width: 300px !important;
-  //         top: 570px !important;
-
-  //         ul {
-  //           li {
-  //             width: 90%;
-  //             margin-left: 5%;
-  //             border-radius: 6px;
-  //             font-size: 16px;
-  //             font-weight: 400;
-  //             &:hover {
-  //               background-color: rgba(115, 255, 178, 0.344);
-  //               color: #00b463;
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  //   }
 }
-
-// div {
-//   div {
-//     &:nth-child(3) {
-//       // position: absolute;
-//       margin: -8px -12px;
-//       min-width: 300px !important;
-//       top: 570px !important;
-//       // left: 39.95% !important;
-//       // left: 290px !important;
-//       ul {
-//         li {
-//           width: 90%;
-//           margin-left: 5%;
-//           border-radius: 6px;
-//           font-size: 16px;
-//           font-weight: 400;
-//           &:hover {
-//             background-color: rgba(115, 255, 178, 0.344);
-//             color: #00b463;
-//           }
-//         }
-//       }
-//     }
-//   }
-// }

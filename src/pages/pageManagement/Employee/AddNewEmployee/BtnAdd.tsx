@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 type propsType = {
   submit: "submit" | "reset" | "button" | undefined;
   handleSubmitBtn: any;
+  name: string;
 } & React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
@@ -15,7 +16,7 @@ const BtnAdd = (props: propsType) => {
     <div className={styles.container}>
       {/* <Link to="/General/employee"> */}
       <button type={props.submit} onClick={props.handleSubmitBtn}>
-        Add
+        {props.name}
       </button>
       {/* </Link> */}
     </div>

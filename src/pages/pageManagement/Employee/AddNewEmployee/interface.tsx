@@ -1,6 +1,6 @@
 export interface IFormValues {
   // EmployeeInfor
-  // nik: string;
+  nik: string;
   name: string;
   gender: number;
   motherName: string;
@@ -35,4 +35,10 @@ export interface IFormValues {
   safetyAmount: string;
   healthyAmount: string;
   mealAllowance: string;
+
+  // Other
+  gradeId: number;
+  benefit: string;
+  remark: string;
+  inputTest: string;
 }

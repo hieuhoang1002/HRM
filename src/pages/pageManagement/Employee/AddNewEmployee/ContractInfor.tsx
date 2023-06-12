@@ -2,10 +2,17 @@ import React, { useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/ContractInfor.module.scss";
 import InputText from "../../../../components/InputText";
 import { BsUpload } from "react-icons/bs";
-import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
+import { MenuItem, Select } from "@mui/material";
 
-const ContractInfor = () => {
+const EmployeeType = [
+  { value: "Permanent", label: "Permanent" },
+  { value: "Part-time", label: "Part-time" },
+  { value: "Contract", label: "Contract" },
+];
+
+const ContractInfor = ({ res }) => {
   const {
     register,
     formState: { errors },
@@ -30,6 +37,7 @@ const ContractInfor = () => {
               Date Start<span>*</span>
             </label>
             <InputText
+              value={res?.contract_start_date}
               placeholder=""
               type="date"
               register={register}
@@ -42,23 +50,20 @@ const ContractInfor = () => {
             <label htmlFor="employeeType">
               Employee Type<span>*</span>
             </label>
-            <select
+
+            <Select
               className={styles.select}
               {...register("employeeType", { required: true })}
             >
-              <option value="" disabled selected style={{ display: "none" }}>
+              {/* <MenuItem value="" disabled selected style={{ display: "none" }}>
                 Choose Type
-              </option>
-              <option value="Permanent" className={styles.male}>
-                Permanent
-              </option>
-              <option value="Part-time" className={styles.parttime}>
-                Part-time
-              </option>
-              <option value="Contract" className={styles.contract}>
-                Contract
-              </option>
-            </select>
+              </MenuItem> */}
+              {EmployeeType.map((options) => (
+                <MenuItem className={styles.menuItem} value={options.value}>
+                  {options.label}
+                </MenuItem>
+              ))}
+            </Select>
           </div>
         </div>
       </div>

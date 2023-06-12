@@ -16,7 +16,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
-} from "@material-ui/core";
+} from "@mui/material";
 
 interface Inputs {
   username: string;
@@ -134,31 +134,29 @@ const SignIn = () => {
               <li>Password from 8 to 16 characters</li>
             )}
         </>
-
-        {/* <label htmlFor="company_id">Factory:</label> */}
-        <FormControl fullWidth className={styles.formControl}>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            className={styles.select}
-            label="Factory"
-            {...register("company_id", { required: true })}
-          >
-            {/* <MenuItem className={styles.menuItem} value="">
+        <>
+          <label htmlFor="company_id">Factory:</label>
+          <FormControl className={styles.formControl}>
+            {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
+            <Select
+              className={styles.select}
+              {...register("company_id", { required: true })}
+            >
+              {/* <MenuItem className={styles.menuItem} value="">
                 <em>None</em>
               </MenuItem> */}
-            <MenuItem className={styles.menuItem} value={1}>
-              SBM
-            </MenuItem>
-            <MenuItem className={styles.menuItem} value={2}>
-              DMF
-            </MenuItem>
-          </Select>
+              <MenuItem className={styles.menuItem} value={1}>
+                SBM
+              </MenuItem>
+              <MenuItem className={styles.menuItem} value={2}>
+                DMF
+              </MenuItem>
+            </Select>
+          </FormControl>
           {errors.company_id?.type === "required" && (
             <li>Factory is required</li>
           )}
-        </FormControl>
+        </>
 
         <Button
           type="submit"

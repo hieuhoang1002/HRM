@@ -65,7 +65,11 @@
           width: 214px;
           min-width: 214px;
         }
-        &:nth-child(11),
+        &:nth-child(11) {
+          width: 250px;
+          min-width: 250px;
+        }
+
         &:nth-child(19),
         &:nth-child(22) {
           width: 131px;
@@ -132,6 +136,7 @@
         color: #687076;
         background: #f3f3f3;
         padding: 6px 10px;
+        height: 31px;
         white-space: nowrap;
 
         &:nth-child(3) {
@@ -161,36 +166,40 @@
           min-width: 214px;
         }
         &:nth-child(11),
-        &:nth-child(19),
-        &:nth-child(22) {
+        &:nth-child(12) {
+          width: 124px;
+          min-width: 124px;
+        }
+        &:nth-child(20),
+        &:nth-child(23) {
           width: 131px;
           min-width: 131px;
         }
-        &:nth-child(12),
-        &:nth-child(18),
-        &:nth-child(20) {
+        &:nth-child(13),
+        &:nth-child(19),
+        &:nth-child(21) {
           width: 150px;
           min-width: 150px;
         }
-        &:nth-child(13) {
+        &:nth-child(14) {
           width: 86px;
           min-width: 86px;
         }
-        &:nth-child(14),
         &:nth-child(15),
-        &:nth-child(16) {
+        &:nth-child(16),
+        &:nth-child(17) {
           width: 84px;
           min-width: 84px;
         }
-        &:nth-child(17) {
+        &:nth-child(18) {
           width: 103px;
           min-width: 103px;
         }
-        &:nth-child(21) {
+        &:nth-child(22) {
           width: 74px;
           min-width: 74px;
         }
-        &:nth-child(23) {
+        &:nth-child(24) {
           width: 120px;
           min-width: 120px;
         }

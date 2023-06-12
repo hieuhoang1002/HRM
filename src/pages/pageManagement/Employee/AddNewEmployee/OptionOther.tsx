@@ -1,7 +1,7 @@
 export const OPTIONSGRADE = [
-  { id: 8, value: "Tabitha Kutch PhD", label: "Tabitha Kutch PhD" },
-  { id: 6, value: "Melissa Johnson", label: "Melissa Johnson" },
-  { id: 1, value: "Danial Stoltenberg", label: "Danial Stoltenberg" },
+  { id: 8, value: 8, label: "Tabitha Kutch PhD" },
+  { id: 6, value: 6, label: "Melissa Johnson" },
+  { id: 1, value: 1, label: "Danial Stoltenberg" },
 ];
 
 export const OPTIONSBENEFIT = [

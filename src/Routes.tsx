@@ -17,4 +17,7 @@ export const ROUTES = {
 
   // Employee
   addemployee: "employee/create-or-update",
+  editemployee: "employee/create-or-update/:id",
+
+  // idpage: "employee?page=:idpage",
 };

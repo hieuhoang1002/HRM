@@ -4,17 +4,29 @@ import InputText from "../../../../components/InputText";
 import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
 import BtnAdd from "./BtnAdd";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+
+const gender = [
+  { id: "0", name: "Male" },
+  { id: "1", name: "Female" },
+];
+
+const marriage = [
+  { id: "3", name: "Married with 1 kid" },
+  { id: "2", name: "Single" },
+  { id: "1", name: "Married" },
+];
 
 const items = [
-  { label: "mobile", type: "number" },
-  { label: "tel", type: "number" },
-  { label: "marriage", type: "text" },
-  { label: "bankCard", type: "number" },
-  { label: "bankAcc", type: "number" },
-  { label: "bankName", type: "text" },
-  { label: "familyCard", type: "number" },
-  { label: "safety", type: "number" },
-  { label: "health", type: "number" },
+  { label: "mobile", type: "number", value: "mobile_no" },
+  { label: "tel", type: "number", value: "tel_no" },
+  { label: "marriage", type: "text", form: "select" },
+  { label: "bankCard", type: "number", value: "card_number" },
+  { label: "bankAcc", type: "number", value: "bank_account_no" },
+  { label: "bankName", type: "text", value: "bank_name" },
+  { label: "familyCard", type: "number", value: "family_card_number" },
+  { label: "safety", type: "number", value: "safety_insurance_no" },
+  { label: "health", type: "number", value: "health_insurance_no" },
 ];
 
 const texts = [
@@ -28,13 +40,23 @@ const texts = [
   "Safety Insurance No. :",
   "Health Insurance No. :",
 ];
-const EmployeeInfor = () => {
+const EmployeeInfor = ({ res }) => {
   const {
     register,
     formState: { errors },
   } = useFormContext<IFormValues>();
 
-  // console.log(useFormContext);
+  const [ugender, setUgender] = useState<string>("");
+  const [umarriage, setUmarriage] = useState<string>("");
+
+  React.useEffect(() => {
+    setUgender(res?.gender);
+    setUmarriage(res?.marriage?.id);
+  }, [res]);
+
+  const handleTouchEnd = () => {
+    console.log("Field touched");
+  };
 
   return (
     <div className={styles.container}>
@@ -52,18 +74,21 @@ const EmployeeInfor = () => {
       <div className={styles.form}>
         {/* Column 1 */}
         <div>
-          {/* <div>
-            <div>
-              <label htmlFor="nik">NIK :</label>
-              <InputText
-                placeholder=""
-                type="text"
-                register={register}
-                label="nik"
-                required={false}
-              />
-            </div>
-          </div> */}
+          <div>
+            {res ? (
+              <div>
+                <label>NIK :</label>
+                <input
+                  type="text"
+                  className={styles.input}
+                  disabled
+                  value={res.staff_id}
+                />
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
 
           <div>
             <div>
@@ -71,13 +96,23 @@ const EmployeeInfor = () => {
                 Name<span>*</span> :
               </label>
               <InputText
+                value={res ? res.name : ""}
                 placeholder=""
                 label="name"
                 register={register}
                 required
                 type="text"
               />
+              {/* <input
+                type="text"
+                {...register(
+                  "inputTest",
+                  { required: true },
+                  { onBlur: () => console.log("Field blurred") }
+                )}
+              /> */}
             </div>
+            {/* {errors[name] ? <li>Please InputTest </li> : ""} */}
             {errors.name?.type === "required" && <li>Please input Name</li>}
           </div>
 
@@ -86,20 +121,25 @@ const EmployeeInfor = () => {
               <label htmlFor="gender">
                 Gender<span>*</span> :
               </label>
-              <select
-                className={styles.select}
-                {...register("gender", { required: true })}
-              >
-                <option value="" disabled selected style={{ display: "none" }}>
-                  Choose Gender
-                </option>
-                <option value="0" className={styles.male}>
-                  Male
-                </option>
-                <option value="1" className={styles.female}>
-                  Female
-                </option>
-              </select>
+
+              <FormControl>
+                <Select
+                  className={styles.select}
+                  {...register("gender", { required: true })}
+                  value={ugender}
+                  onChange={(e) => setUgender(e.target.value)}
+                >
+                  {gender.map((item, i: number) => (
+                    <MenuItem
+                      className={styles.menuItem}
+                      value={item.id}
+                      key={"gender" + i}
+                    >
+                      {item.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
             {errors.gender?.type === "required" && <li>Please input Gender</li>}
           </div>
@@ -108,6 +148,7 @@ const EmployeeInfor = () => {
             <div>
               <label htmlFor="motherName">Mother Name :</label>
               <InputText
+                value={res?.mother_name}
                 placeholder=""
                 label="motherName"
                 register={register}
@@ -123,6 +164,7 @@ const EmployeeInfor = () => {
                 Date of birth<span>*</span> :
               </label>
               <InputText
+                value={res?.dob}
                 placeholder=""
                 type="date"
                 label="birth"
@@ -136,6 +178,7 @@ const EmployeeInfor = () => {
             <div>
               <label htmlFor="place">Place of birth :</label>
               <InputText
+                value={res?.pob}
                 placeholder=""
                 type="text"
                 label="place"
@@ -151,6 +194,7 @@ const EmployeeInfor = () => {
                 KTP No.<span>*</span> :
               </label>
               <InputText
+                value={res?.ktp_no}
                 placeholder=""
                 type="number"
                 label="ktp"
@@ -167,6 +211,7 @@ const EmployeeInfor = () => {
                 Notional Card ID<span>*</span> :
               </label>
               <InputText
+                value={res?.nc_id}
                 placeholder=""
                 type="number"
                 label="notional"
@@ -183,6 +228,7 @@ const EmployeeInfor = () => {
             <div>
               <label htmlFor="home1">Home Address 1 :</label>
               <InputText
+                value={res?.home_address_1}
                 placeholder=""
                 type="text"
                 label="home1"
@@ -196,6 +242,7 @@ const EmployeeInfor = () => {
             <div>
               <label htmlFor="home2">Home Address 2 :</label>
               <InputText
+                value={res?.home_address_2}
                 placeholder=""
                 type="text"
                 label="home2"
@@ -218,14 +265,40 @@ const EmployeeInfor = () => {
 
           <div>
             {items.map((item: any, i: number) => (
-              <div key={"input" + i}>
-                <InputText
-                  placeholder=""
-                  type={item.type}
-                  label={item.label}
-                  register={register}
-                  required={false}
-                />
+              <div key={"marriage" + i}>
+                {item.form ? (
+                  <FormControl className={styles.formControl}>
+                    <Select
+                      className={styles.select}
+                      {...register("marriage", { required: true })}
+                      value={umarriage}
+                      onChange={(e) => setUmarriage(e.target.value)}
+                    >
+                      <MenuItem className={styles.menuItem}>
+                        <em>N/A</em>
+                      </MenuItem>
+                      {marriage.map((item, i: number) => (
+                        <MenuItem
+                          className={styles.menuItem}
+                          value={item.id}
+                          key={"gender" + i}
+                        >
+                          {item.name}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                ) : (
+                  <InputText
+                    value={""}
+                    placeholder=""
+                    type={item.type}
+                    label={item.label}
+                    register={register}
+                    required={false}
+                  />
+                )}
+                <div style={{ color: "black" }}>{item.value}</div>
               </div>
             ))}
           </div>

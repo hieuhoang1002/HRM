@@ -1,46 +1,76 @@
 import React, { useState } from "react";
 import { BsUpload } from "react-icons/bs";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/Other.module.scss";
-import InputText from "../../../../components/InputText";
-import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
-import Select from "react-select";
 import makeAnimated from "react-select/animated";
 import axios from "axios";
 import { API } from "../../../../configAPI";
 import { OPTIONSBENEFIT, OPTIONSGRADE } from "./OptionOther";
+import {
+  FormControl,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
+} from "@mui/material";
+import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
+import { Theme, useTheme } from "@mui/material/styles";
 
-type OptionType = {
-  id: number | null | undefined;
-  value: string;
-  label: string;
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
 };
 
-const Other = () => {
-  const [selectedOptionGrade, setSelectedOptionGrade] =
-    useState<OptionType>(null);
-  const [selectedOptionBenefit, setSelectedOptionBenefit] =
-    useState<OptionType>(null);
+const names = [
+  "Oliver Hansen",
+  "Van Henry",
+  "April Tucker",
+  "Ralph Hubbard",
+  "Omar Alexander",
+  "Carlos Abbott",
+  "Miriam Wagner",
+  "Bradley Wilkerson",
+  "Virginia Andrews",
+  "Kelly Snyder",
+];
 
+function getStyles(name: string, personName: readonly string[], theme: Theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
+
+const Other = () => {
   const [dataGrade, setDataGrade] = useState([]);
   console.log(dataGrade);
 
   const animatedComponents = makeAnimated();
+
+  const theme = useTheme();
+  const [personName, setPersonName] = React.useState<string[]>([]);
   const {
     register,
     formState: { errors },
   } = useFormContext<IFormValues>();
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) => {};
-
   const handleOptionGrade = (e) => {
-    // console.log(e);
+    // console.log(e.target.value);
     if (e) {
-      const id = e.id;
+      const value = e.target.value;
       axios({
         method: "GET",
         baseURL: API,
-        url: `/benefit?grade_id=${id}`,
+        url: `/benefit?grade_id=${value}`,
         headers: {
           Authorization: "Bearer " + localStorage.getItem("CheckToken"),
         },
@@ -61,9 +91,15 @@ const Other = () => {
     } else {
     }
   };
-  const handleOptionBenefit = (e) => {
-    console.log(e);
-    setSelectedOptionBenefit(e);
+  const handleOptionBenefit = (event: SelectChangeEvent<typeof personName>) => {
+    console.log(event);
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      // On autofill we get a stringified value.
+      typeof value === "string" ? value.split(",") : value
+    );
   };
   return (
     <div className={styles.container}>
@@ -81,15 +117,19 @@ const Other = () => {
       <div className={styles.form}>
         <div>
           <div>
-            <label htmlFor="dateStart">Grade</label>
+            <label htmlFor="gradeId">Grade</label>
+
             <Select
               className={styles.selectGrade}
-              isClearable
-              defaultValue={selectedOptionGrade}
+              {...register("gradeId")}
               onChange={handleOptionGrade}
-              options={OPTIONSGRADE}
-              placeholder=""
-            />
+            >
+              {OPTIONSGRADE.map((options) => (
+                <MenuItem className={styles.menuItem} value={options.value}>
+                  {options.label}
+                </MenuItem>
+              ))}
+            </Select>
           </div>
 
           {/* {dataGrade.map((data) => (
@@ -97,31 +137,47 @@ const Other = () => {
           ))} */}
 
           <div>
-            <label htmlFor="tel">Benefit</label>
+            <label htmlFor="benefit">Benefit</label>
+
             <Select
               className={styles.selectBenefit}
-              isMulti
-              closeMenuOnSelect={false}
-              components={animatedComponents}
-              defaultValue={selectedOptionBenefit}
+              {...register("benefit")}
               onChange={handleOptionBenefit}
-              placeholder=""
-              options={OPTIONSBENEFIT}
-            />
+              multiple
+              value={personName}
+              renderValue={(selected) => (
+                <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+                  {selected.map((value) => (
+                    <Chip key={value} label={value} />
+                  ))}
+                </Box>
+              )}
+              MenuProps={MenuProps}
+            >
+              {OPTIONSBENEFIT.map((options) => (
+                <MenuItem
+                  className={styles.menuItem}
+                  key={options.value}
+                  value={options.value}
+                >
+                  {options.label}
+                </MenuItem>
+              ))}
+            </Select>
           </div>
 
           <div>
             <label htmlFor="remark">Remark</label>
-            <textarea name="" id="remark"></textarea>
+            <textarea name="" id="remark" {...register("remark")}></textarea>
           </div>
 
           <div>
             <label htmlFor="">HRM User Account</label>
-            <Select
+            {/* <Select
               className={styles.selectAccount}
               placeholder=""
               isDisabled
-            />
+            /> */}
           </div>
         </div>
       </div>

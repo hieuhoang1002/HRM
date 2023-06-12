@@ -1,5 +1,9 @@
-import React, { useState } from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/AddEmployee.module.scss";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EditEmployee.module.scss";
+import { useParams } from "react-router-dom";
+import { API } from "../../../../configAPI";
+import Pathpage from "../../../../components/component/Pathpage";
 import EmployeeInfor from "./EmployeeInfor";
 import ContractInfor from "./ContractInfor";
 import EmployeeDetails from "./EmployeeDetails";
@@ -8,56 +12,49 @@ import Other from "./Other";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { IFormValues } from "./interface";
 import BtnAdd from "./BtnAdd";
-import { ToastContainer, toast } from "react-toastify";
-import axios from "axios";
-import { API } from "../../../../configAPI";
-import Pathpage from "../../../../components/component/Pathpage";
-import Alert from "@mui/material/Alert";
 
 const pathPage = [
   { name: "General", link: "/General" },
   { name: "Employee Management", link: "/General/employee" },
-  { name: "Add new employee" },
+  { name: "Edit employee" },
 ];
-const AddEmployee = () => {
+const EditEmployee = () => {
+  const { id } = useParams();
+
+  const [res, setRes] = useState<any>();
+
   const [activeMenuItem, setActiveMenuItem] = useState(0);
 
   const methods = useForm<IFormValues>();
-  // console.log(methods);
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => console.log(data);
 
-  // console.log(methods.handleSubmit(onSubmit));
+  useEffect(() => {
+    axios({
+      method: "GET",
+      baseURL: API,
+      url: `/employee/${id}`,
+      headers: {
+        Authorization: "Bearer" + localStorage.getItem("CheckToken"),
+      },
+    })
+      .then((res) => setRes(res.data.data))
+      .catch((err) => err);
+  }, []);
 
-  // const validateField = (fieldName, value) => {
-  //   switch (fieldName) {
-  //     case "name":
-  //       return value.length > 0 ? (
-  //         console.log("OK")
-  //       ) : (
-  //         <li>Please input Name</li>
-  //       );
-  //       break;
-  //     case "gender":
-  //       return false;
-  //     default:
-  //       return true;
-  //   }
-  // };
-
-  // const handleFieldBlur = (fieldName, event) => {
-  //   const value = event.target.value;
-  //   methods.handleSubmit(() => validateField(fieldName, value))();
-  //   console.log(value);
-  // };
+  console.log(res);
 
   const menuItems = [
     {
       id: 0,
       label: "Employee Information",
-      content: <EmployeeInfor res={""} />,
+      content: <EmployeeInfor res={res} />,
     },
-    { id: 1, label: "Contract Information", content: <ContractInfor res="" /> },
+    {
+      id: 1,
+      label: "Contract Information",
+      content: <ContractInfor res={res} />,
+    },
     {
       id: 2,
       label: "Employment Details",
@@ -69,9 +66,9 @@ const AddEmployee = () => {
 
   const handleSubmitBtn = () => {
     axios({
-      method: "POST",
+      method: "PUT",
       baseURL: API,
-      url: "/employee",
+      url: `/employee/${id}`,
       headers: {
         Authorization: "Bearer " + localStorage.getItem("CheckToken"),
       },
@@ -126,54 +123,67 @@ const AddEmployee = () => {
       .catch((err) => err);
   };
 
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 1500);
+  }, []);
+
   return (
-    <div className={styles.container}>
-      <Pathpage pathPage={pathPage} />
+    <>
+      {loading ? (
+        <div className={styles.LoadingContainer}>
+          <div className={styles.loading}></div>
+        </div>
+      ) : (
+        <div className={styles.container}>
+          <div style={{ color: "black" }}>{id}</div>
+          <Pathpage pathPage={pathPage} />
 
-      <ToastContainer />
+          {/* <ToastContainer /> */}
 
-      <FormProvider {...methods}>
-        <form action="" onSubmit={methods.handleSubmit(onSubmit)}>
-          <div className={styles.header}>
-            <p className={styles.title}>Employee Managenment</p>
-            <BtnAdd
-              submit="submit"
-              handleSubmitBtn={handleSubmitBtn}
-              name="Add"
-            />
-            {methods.formState.isSubmitting && (
-              <div style={{ background: "red" }}>Submitting...</div>
-            )}
+          <FormProvider {...methods}>
+            <form action="" onSubmit={methods.handleSubmit(onSubmit)}>
+              <div className={styles.header}>
+                <p className={styles.title}>Employee Managenment</p>
+                <BtnAdd
+                  submit="submit"
+                  handleSubmitBtn={handleSubmitBtn}
+                  name="Save Change"
+                />
+                {methods.formState.isSubmitting && (
+                  <div style={{ background: "red" }}>Submitting...</div>
+                )}
 
-            {methods.formState.isSubmitSuccessful && (
+                {/* {methods.formState.isSubmitSuccessful && (
               <Alert severity="success">Record added</Alert>
-            )}
-          </div>
-          <div className={styles.item}>
-            {menuItems.map((item) => (
-              <div
-                key={item.id}
-                className={activeMenuItem === item.id ? styles.active : ""}
-                onClick={() => setActiveMenuItem(item.id)}
-              >
-                <button type="button" onClick={methods.handleSubmit(onSubmit)}>
-                  {item.label}
-                </button>
+            )} */}
               </div>
-            ))}
-          </div>
+              <div className={styles.item}>
+                {menuItems.map((item) => (
+                  <div
+                    key={item.id}
+                    className={activeMenuItem === item.id ? styles.active : ""}
+                    onClick={() => setActiveMenuItem(item.id)}
+                  >
+                    <button type="button">{item.label}</button>
+                  </div>
+                ))}
+              </div>
 
-          <div className={styles.containerContent}>
-            {menuItems[activeMenuItem].content}
-          </div>
-        </form>
-      </FormProvider>
+              <div className={styles.containerContent}>
+                {menuItems[activeMenuItem].content}
+              </div>
+            </form>
+          </FormProvider>
 
-      <div className={styles.copyright}>
-        Copyright © 2022. All Rights Reserved
-      </div>
-    </div>
+          <div className={styles.copyright}>
+            Copyright © 2022. All Rights Reserved
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
-export default AddEmployee;
+export default EditEmployee;

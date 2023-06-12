@@ -6,12 +6,17 @@ import { IoIosArrowDown } from "react-icons/io";
 import Profile from "./Profile";
 import axios from "axios";
 import { API } from "../../../configAPI";
+import Dropdown from "react-bootstrap/Dropdown";
+import { DropdownButton } from "react-bootstrap";
+import { MenuItem, Select } from "@mui/material";
 
 const Header = () => {
   const id = localStorage.getItem("id");
   // console.log(id);
   // const Token = localStorage.getItem("CheckToken");
   // console.log(Token);
+
+  const [showLanguage, setShowLanguage] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [userName, setUserName] = useState<string>("");
   const [department, setDepartment] = useState<string>("");
@@ -36,6 +41,10 @@ const Header = () => {
     setShowModal(true);
   };
 
+  const handleLanguage = () => {
+    setShowLanguage(!showLanguage);
+  };
+
   return (
     <div className={styles.container}>
       <div>
@@ -46,28 +55,26 @@ const Header = () => {
       </div>
 
       <div>
-        <div className="dropdown-center">
-          <button
-            className={styles.btnDropdown}
-            type="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
+        <div className={styles.language}>
+          <button className={styles.btnDropdown} onClick={handleLanguage}>
             <img src={intlImg} alt="" />
             <span>EN</span>
             <IoIosArrowDown className={styles.icon} />
           </button>
-          <ul className="dropdown-menu">
-            <li className="dropdown-item">
-              <img src={intlImg} alt="" />
-              <span>EN</span>
-            </li>
 
-            <li className="dropdown-item">
-              <img src={intlImg} alt="" />
-              <span>VI</span>
-            </li>
-          </ul>
+          {showLanguage && (
+            <div>
+              <li>
+                <img src={intlImg} alt="" />
+                <span>EN</span>
+              </li>
+
+              <li>
+                <img src={intlImg} alt="" />
+                <span>VI</span>
+              </li>
+            </div>
+          )}
         </div>
 
         <div className={styles.avatar} onClick={handleShow}>
