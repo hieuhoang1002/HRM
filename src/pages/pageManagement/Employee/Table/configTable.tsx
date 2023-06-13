@@ -39,7 +39,7 @@ export const DATAS = [
   "contract_second",
   "contract_end",
   "department_name",
-  "employee_type",
+  "type",
   "basic_salary",
   "position_name",
   "entitle_ot",

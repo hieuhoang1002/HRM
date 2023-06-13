@@ -3,7 +3,7 @@
     background-color: #ffffff;
     border-radius: 8px;
     box-shadow: #eceef0 0px 5px 15px 0px;
-    margin: 6px 0 0;
+
     padding: 20px 24px;
     display: flex;
     flex-direction: column !important;
@@ -13,7 +13,7 @@
     z-index: 4;
     width: 300px;
     margin-left: -300px;
-    margin-top: 270px;
+    margin-top: 320px;
     .userName {
       gap: 10px;
 
@@ -61,6 +61,26 @@
       margin-top: 20px;
       &:hover {
         background-color: #23a0ff;
+        transition: all 0.3s;
+      }
+    }
+    .resetPassWord {
+      margin-top: 15px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      transition: all 0.3s;
+      &:hover a {
+        color: white;
+        background-color: #0091ff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        transition: all 0.3s;
+      }
+      a {
+        text-decoration: none;
+        color: #0091ff;
+        font-size: 14px;
+        padding: 6px 10px;
         transition: all 0.3s;
       }
     }

@@ -34,7 +34,7 @@ interface data {
   contract_second: string;
   contract_end: string;
   department_name: string;
-  employee_type: string;
+  type: string;
   basic_salary: string;
   position_name: string;
   entitle_ot: string;
@@ -95,7 +95,7 @@ const Table = (props: propsTable) => {
       contract_second: "",
       contract_end: "",
       department_name: "",
-      employee_type: "",
+      type: "",
       basic_salary: "",
       position_name: "",
       entitle_ot: "",
@@ -167,7 +167,7 @@ const Table = (props: propsTable) => {
             contract_second: item.contract_second,
             contract_end: item.contract_end,
             department_name: item.department_name,
-            employee_type: item.employee_type,
+            type: item.type,
             basic_salary: item.basic_salary,
             position_name: item.position_name,
             entitle_ot: item.entitle_ot,
@@ -229,7 +229,7 @@ const Table = (props: propsTable) => {
             contract_second: item.contract_second,
             contract_end: item.contract_end,
             department_name: item.department_name,
-            employee_type: item.employee_type,
+            type: item.type,
             basic_salary: item.basic_salary,
             position_name: item.position_name,
             entitle_ot: item.entitle_ot,
@@ -399,7 +399,7 @@ const Table = (props: propsTable) => {
                 contract_second: item.contract_second,
                 contract_end: item.contract_end,
                 department_name: item.department_name,
-                employee_type: item.employee_type,
+                type: item.type,
                 basic_salary: item.basic_salary,
                 position_name: item.position_name,
                 entitle_ot: item.entitle_ot,
@@ -499,11 +499,34 @@ const Table = (props: propsTable) => {
                     {parseInt(item["gender"]) === 0 ? "Male" : "Female"}
                   </div>
                   {DATAS.map(
-                    (data, i): React.ReactNode => (
-                      <div key={"content" + i} className={styles.content}>
-                        {item[data]}
-                      </div>
-                    )
+                    (data, i): React.ReactNode =>
+                      data === "type" ? (
+                        <div className={styles.content}>
+                          {parseInt(item["type"]) === 0
+                            ? "Permanent"
+                            : parseInt(item["type"]) === 1
+                            ? "Part-time"
+                            : "Contract"}
+                        </div>
+                      ) : data === "entitle_ot" ? (
+                        <div className={styles.content}>
+                          {parseInt(item["entitle_ot"]) === 1
+                            ? "Yes"
+                            : parseInt(item["entitle_ot"]) === 0
+                            ? "No"
+                            : ""}
+                        </div>
+                      ) : data === "meal_allowance_paid" ? (
+                        <div className={styles.content}>
+                          {parseInt(item["meal_allowance_paid"]) === 1
+                            ? "Yes"
+                            : parseInt(item["meal_allowance_paid"]) === 0
+                            ? "No"
+                            : ""}
+                        </div>
+                      ) : (
+                        <div className={styles.content}>{item[data]}</div>
+                      )
                   )}
                 </div>
                 // </Link>

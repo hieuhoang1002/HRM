@@ -59,8 +59,7 @@
           }
         }
         .select {
-          align-items: center;
-          padding: 8px 12px;
+          text-align: start;
 
           width: 270px;
           height: 46px;
@@ -76,12 +75,9 @@
 
           color: #11181c;
           outline: none;
-
-          option {
-            background-color: white;
-            &:hover {
-            }
-          }
+        }
+        fieldset {
+          border-style: none;
         }
       }
     }

@@ -14,7 +14,7 @@ type propModaleSignOut = {
 >;
 
 const ModalSignOut = (props: propModaleSignOut) => {
-  const id = localStorage.getItem("id");
+  // const id = localStorage.getItem("id");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,7 +32,7 @@ const ModalSignOut = (props: propModaleSignOut) => {
       .then((res) => {
         dispatch({
           type: "SIGNOUT",
-          payload: id,
+          payload: "",
         });
         navigate("/");
         console.log(res);

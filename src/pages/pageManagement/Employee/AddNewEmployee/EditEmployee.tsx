@@ -12,6 +12,7 @@ import Other from "./Other";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { IFormValues } from "./interface";
 import BtnAdd from "./BtnAdd";
+import Loading from "../../../../components/component/Loading";
 
 const pathPage = [
   { name: "General", link: "/General" },
@@ -42,7 +43,7 @@ const EditEmployee = () => {
       .catch((err) => err);
   }, []);
 
-  console.log(res);
+  // console.log(res);
 
   const menuItems = [
     {
@@ -58,7 +59,7 @@ const EditEmployee = () => {
     {
       id: 2,
       label: "Employment Details",
-      content: <EmployeeDetails />,
+      content: <EmployeeDetails res={res} />,
     },
     { id: 3, label: "Salary & Wages", content: <Salary /> },
     { id: 4, label: "Others", content: <Other /> },
@@ -114,12 +115,12 @@ const EditEmployee = () => {
         safety_insurance_no: methods.getValues("safety"),
         staff_id: "",
         tel_no: methods.getValues("tel"),
-        type: "1",
+        type: methods.getValues("type"),
         user: null,
         userAccount: null,
       },
     })
-      .then((res) => console.log(res))
+      .then((res) => {})
       .catch((err) => err);
   };
 
@@ -132,12 +133,9 @@ const EditEmployee = () => {
   return (
     <>
       {loading ? (
-        <div className={styles.LoadingContainer}>
-          <div className={styles.loading}></div>
-        </div>
+        <Loading />
       ) : (
         <div className={styles.container}>
-          <div style={{ color: "black" }}>{id}</div>
           <Pathpage pathPage={pathPage} />
 
           {/* <ToastContainer /> */}
@@ -177,7 +175,7 @@ const EditEmployee = () => {
             </form>
           </FormProvider>
 
-          <div className={styles.copyright}>
+          <div className={styles.footer}>
             Copyright © 2022. All Rights Reserved
           </div>
         </div>

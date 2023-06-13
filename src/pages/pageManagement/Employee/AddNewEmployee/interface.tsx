@@ -23,11 +23,15 @@ export interface IFormValues {
 
   // ContractInfor
   dateStart: string;
-  employeeType: string;
+  type: string;
 
   // Employee Details
   positionId: number;
   department: number;
+  entitle_ot: boolean;
+  meal_allowance_paid: boolean;
+  operational_allowance_paid: boolean;
+  attendance_allowance_paid: boolean;
 
   // Salary
   salary: string;
@@ -41,4 +45,8 @@ export interface IFormValues {
   benefit: string;
   remark: string;
   inputTest: string;
+
+  // Settings -> ChangePassWord
+  newPass: string;
+  confirmPass: string;
 }

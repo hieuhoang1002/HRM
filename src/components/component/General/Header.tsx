@@ -11,13 +11,14 @@ import { DropdownButton } from "react-bootstrap";
 import { MenuItem, Select } from "@mui/material";
 
 const Header = () => {
-  const id = localStorage.getItem("id");
+  // const id = localStorage.getItem("id");
   // console.log(id);
   // const Token = localStorage.getItem("CheckToken");
   // console.log(Token);
 
   const [showLanguage, setShowLanguage] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [userId, setuserId] = useState<number>();
   const [userName, setUserName] = useState<string>("");
   const [department, setDepartment] = useState<string>("");
 
@@ -25,12 +26,14 @@ const Header = () => {
     axios({
       method: "get",
       baseURL: API,
-      url: `/user/${id}`,
+      url: `/user/detail`,
       headers: {
         Authorization: localStorage.getItem("CheckToken"),
       },
     })
       .then((res) => {
+        console.log(res);
+        setuserId(res.data.data.id);
         setUserName(res.data.data.username);
         setDepartment(res.data.data.department.name);
       })
@@ -82,6 +85,7 @@ const Header = () => {
         </div>
         {showModal && (
           <Profile
+            userId={userId}
             userName={userName}
             department={department}
             handleremoveShow={() => setShowModal(false)}

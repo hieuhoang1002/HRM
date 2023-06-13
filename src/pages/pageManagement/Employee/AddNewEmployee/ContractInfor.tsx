@@ -7,9 +7,9 @@ import { IFormValues } from "./interface";
 import { MenuItem, Select } from "@mui/material";
 
 const EmployeeType = [
-  { value: "Permanent", label: "Permanent" },
-  { value: "Part-time", label: "Part-time" },
-  { value: "Contract", label: "Contract" },
+  { value: "0", label: "Permanent" },
+  { value: "1", label: "Part-time" },
+  { value: "2", label: "Contract" },
 ];
 
 const ContractInfor = ({ res }) => {
@@ -17,6 +17,13 @@ const ContractInfor = ({ res }) => {
     register,
     formState: { errors },
   } = useFormContext<IFormValues>();
+
+  const [utype, setUtype] = useState<string>("");
+
+  React.useEffect(() => {
+    setUtype(res?.type);
+  }, [res]);
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -47,19 +54,25 @@ const ContractInfor = ({ res }) => {
           </div>
 
           <div>
-            <label htmlFor="employeeType">
+            <label htmlFor="type">
               Employee Type<span>*</span>
             </label>
 
             <Select
               className={styles.select}
-              {...register("employeeType", { required: true })}
+              {...register("type", { required: true })}
+              value={utype}
+              onChange={(e) => setUtype(e.target.value)}
             >
               {/* <MenuItem value="" disabled selected style={{ display: "none" }}>
                 Choose Type
               </MenuItem> */}
-              {EmployeeType.map((options) => (
-                <MenuItem className={styles.menuItem} value={options.value}>
+              {EmployeeType.map((options, i: number) => (
+                <MenuItem
+                  key={"employeeType" + i}
+                  className={styles.menuItem}
+                  value={options.value}
+                >
                   {options.label}
                 </MenuItem>
               ))}

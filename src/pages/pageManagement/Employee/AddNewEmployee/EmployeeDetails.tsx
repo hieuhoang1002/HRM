@@ -2,13 +2,20 @@ import React, { useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EmployeeDetails.module.scss";
 import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
-const EmployeeDetails = () => {
+const EmployeeDetails = ({ res }) => {
   const [checked, setChecked] = useState<boolean>(true);
+
   const {
     register,
     formState: { errors },
   } = useFormContext<IFormValues>();
+  const [udepartment, setUdepartment] = useState<string>("");
+
+  React.useEffect(() => {
+    setUdepartment(res?.department_id);
+  }, [res]);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -26,71 +33,90 @@ const EmployeeDetails = () => {
         <div className={styles.containerInput}>
           <div>
             <label htmlFor="department">Department</label>
-            <select
-              className={styles.select}
-              {...register("department", { required: true })}
-            >
-              <option value="" disabled selected style={{ display: "none" }}>
-                Choose Department
-              </option>
-              <option value="" className={styles.male}>
-                N/A
-              </option>
-              <option value="4" className={styles.parttime}>
-                Developer
-              </option>
-              <option value="3" className={styles.contract}>
-                Quality Controjk
-              </option>
-              <option value="2" className={styles.contract}>
-                Maintenance
-              </option>
-              <option value="1" className={styles.contract}>
-                Business Development
-              </option>
-            </select>
+
+            <FormControl className={styles.formControl}>
+              <Select
+                className={styles.select}
+                {...register("department", { required: true })}
+                value={udepartment}
+                onChange={(e) => setUdepartment(e.target.value)}
+              >
+                <MenuItem className={styles.menuItem} value="">
+                  <em>N/A</em>
+                </MenuItem>
+                <MenuItem className={styles.menuItem} value={4}>
+                  Developer
+                </MenuItem>
+                <MenuItem className={styles.menuItem} value={3}>
+                  Quality Controjk
+                </MenuItem>
+                <MenuItem className={styles.menuItem} value={2}>
+                  Maintenance
+                </MenuItem>
+                <MenuItem className={styles.menuItem} value={1}>
+                  Business Development
+                </MenuItem>
+              </Select>
+            </FormControl>
           </div>
 
           <div>
             <label htmlFor="positionId">Position</label>
-            <select
-              className={styles.select}
-              {...register("positionId", { required: true })}
-            >
-              <option value="" disabled selected style={{ display: "none" }}>
-                Choose Position
-              </option>
-              <option value="" className={styles.male}>
-                N/A
-              </option>
-              <option value="3" className={styles.parttime}>
-                Junior
-              </option>
-              <option value="2" className={styles.contract}>
-                Vice manager
-              </option>
-              <option value="1" className={styles.contract}>
-                Manager
-              </option>
-            </select>
+
+            <FormControl className={styles.formControl}>
+              <Select
+                className={styles.select}
+                {...register("positionId", { required: true })}
+              >
+                <MenuItem className={styles.menuItem} value="">
+                  <em>N/A</em>
+                </MenuItem>
+                <MenuItem className={styles.menuItem} value={3}>
+                  Junior
+                </MenuItem>
+                <MenuItem className={styles.menuItem} value={2}>
+                  Vice manager
+                </MenuItem>
+                <MenuItem className={styles.menuItem} value={1}>
+                  Manager
+                </MenuItem>
+              </Select>
+            </FormControl>
           </div>
         </div>
 
         <div className={styles.containerCheckbox}>
           <div>
-            <input type="checkbox" onClick={(e) => setChecked(!checked)} />
+            <input
+              type="checkbox"
+              onClick={(e) => setChecked(!checked)}
+              {...register("entitle_ot")}
+            />
             <span>Entitled OT</span>
           </div>
+
           <div>
-            <input type="checkbox" />
+            <input type="checkbox" {...register("meal_allowance_paid")} />
             <span>Meal Allowance Paid</span>
           </div>
+
           <div>
-            <input type="checkbox" checked={checked} disabled />
+            <input
+              type="checkbox"
+              checked={checked}
+              readOnly
+              {...register("operational_allowance_paid")}
+            />
             <span>Operational Allowance Paid</span>
           </div>
+
           <div>
-            <input type="checkbox" checked={checked} disabled />
+            <input
+              type="checkbox"
+              checked={checked}
+              readOnly
+              {...register("attendance_allowance_paid")}
+            />
             <span>Attendance Allowance Paid</span>
           </div>
         </div>

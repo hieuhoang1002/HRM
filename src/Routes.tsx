@@ -14,10 +14,14 @@ export const ROUTES = {
 
   // Advance
   globalsettings: "globalsettings",
+  settings: "settings",
 
   // Employee
   addemployee: "employee/create-or-update",
   editemployee: "employee/create-or-update/:id",
 
   // idpage: "employee?page=:idpage",
+
+  // Settings
+  changepassword: "settings/change-password",
 };

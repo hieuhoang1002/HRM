@@ -15,7 +15,11 @@ const BtnAdd = (props: propsType) => {
   return (
     <div className={styles.container}>
       {/* <Link to="/General/employee"> */}
-      <button type={props.submit} onClick={props.handleSubmitBtn}>
+      <button
+        type={props.submit}
+        onClick={props.handleSubmitBtn}
+        className={props.name === "Add" ? styles.add : styles.saveChange}
+      >
         {props.name}
       </button>
       {/* </Link> */}

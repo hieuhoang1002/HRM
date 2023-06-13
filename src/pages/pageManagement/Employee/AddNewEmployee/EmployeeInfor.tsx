@@ -5,6 +5,7 @@ import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
 import BtnAdd from "./BtnAdd";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import { type } from "os";
 
 const gender = [
   { id: "0", name: "Male" },
@@ -16,7 +17,6 @@ const marriage = [
   { id: "2", name: "Single" },
   { id: "1", name: "Married" },
 ];
-
 const items = [
   { label: "mobile", type: "number", value: "mobile_no" },
   { label: "tel", type: "number", value: "tel_no" },
@@ -28,7 +28,6 @@ const items = [
   { label: "safety", type: "number", value: "safety_insurance_no" },
   { label: "health", type: "number", value: "health_insurance_no" },
 ];
-
 const texts = [
   "Mobile No. :",
   "Tel No. :",
@@ -40,23 +39,32 @@ const texts = [
   "Safety Insurance No. :",
   "Health Insurance No. :",
 ];
+
 const EmployeeInfor = ({ res }) => {
+  // console.log(res);
+  // const items = [
+  //   { label: "mobile", type: "number", value: res?.mobile_no },
+  //   { label: "tel", type: "number", value: res?.tel_no },
+  //   { label: "marriage", type: "text", form: "select" },
+  //   { label: "bankCard", type: "number", value: res?.card_number },
+  //   { label: "bankAcc", type: "number", value: res?.bank_account_no },
+  //   { label: "bankName", type: "text", value: res?.bank_name },
+  //   { label: "familyCard", type: "number", value: res?.family_card_number },
+  //   { label: "safety", type: "number", value: res?.safety_insurance_no },
+  //   { label: "health", type: "number", value: res?.health_insurance_no },
+  // ];
   const {
     register,
     formState: { errors },
   } = useFormContext<IFormValues>();
 
-  const [ugender, setUgender] = useState<string>("");
+  const [ugender, setUgender] = useState<string>("Choose Gender");
   const [umarriage, setUmarriage] = useState<string>("");
 
   React.useEffect(() => {
     setUgender(res?.gender);
     setUmarriage(res?.marriage?.id);
   }, [res]);
-
-  const handleTouchEnd = () => {
-    console.log("Field touched");
-  };
 
   return (
     <div className={styles.container}>
@@ -129,6 +137,14 @@ const EmployeeInfor = ({ res }) => {
                   value={ugender}
                   onChange={(e) => setUgender(e.target.value)}
                 >
+                  <MenuItem
+                    value="Choose Gender"
+                    selected
+                    disabled
+                    style={{ display: "none" }}
+                  >
+                    Choose Gender
+                  </MenuItem>
                   {gender.map((item, i: number) => (
                     <MenuItem
                       className={styles.menuItem}
@@ -281,7 +297,7 @@ const EmployeeInfor = ({ res }) => {
                         <MenuItem
                           className={styles.menuItem}
                           value={item.id}
-                          key={"gender" + i}
+                          key={"marriage" + i}
                         >
                           {item.name}
                         </MenuItem>
@@ -290,7 +306,7 @@ const EmployeeInfor = ({ res }) => {
                   </FormControl>
                 ) : (
                   <InputText
-                    value={""}
+                    value={res[item.value]}
                     placeholder=""
                     type={item.type}
                     label={item.label}
@@ -298,7 +314,6 @@ const EmployeeInfor = ({ res }) => {
                     required={false}
                   />
                 )}
-                <div style={{ color: "black" }}>{item.value}</div>
               </div>
             ))}
           </div>

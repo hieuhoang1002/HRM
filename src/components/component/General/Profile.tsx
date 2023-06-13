@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import styles from "../../scss/General/Profile.module.scss";
 import ModalSignOut from "./ModalSignOut";
+import { Link } from "react-router-dom";
 
 type propProfile = {
+  userId: number;
   userName: string;
   department: string;
   handleremoveShow: any;
@@ -12,7 +14,7 @@ type propProfile = {
 >;
 
 const Profile = (props: propProfile) => {
-  const id = localStorage.getItem("id");
+  const id = props.userId;
 
   const [showModalSignOut, setShowModalSignOut] = useState<boolean>(false);
 
@@ -43,6 +45,10 @@ const Profile = (props: propProfile) => {
             handleShowModalSignOut={() => setShowModalSignOut(false)}
           />
         )}
+
+        <div className={styles.resetPassWord}>
+          <Link to="settings/change-password">Reset Password</Link>
+        </div>
       </div>
       <div className={styles.coating} onClick={props.handleremoveShow}></div>
     </div>

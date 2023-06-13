@@ -9,14 +9,7 @@ import { API } from "../../configAPI";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useDispatch } from "react-redux";
-import {
-  Button,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-} from "@mui/material";
+import { Button, FormControl, MenuItem, Select } from "@mui/material";
 
 interface Inputs {
   username: string;
@@ -41,8 +34,6 @@ const SignIn = () => {
     setShow(!show);
   };
 
-  const dispatch = useDispatch();
-
   const handleLogin = () => {
     axios({
       method: "POST",
@@ -52,39 +43,12 @@ const SignIn = () => {
         username: watch("username"),
         password: watch("password"),
         company_id: watch("company_id"),
-        // -----------------------
-        // company_id: valueOption,
-        // -----------------------
       },
     })
       .then((res) => {
         localStorage.setItem("CheckToken", "Bearer " + res.data.data.token);
         toast("Đăng nhập thành công");
         navigate("/General");
-
-        var userName = watch("username");
-
-        axios({
-          method: "GET",
-          baseURL: API,
-          url: "/user",
-          headers: {
-            Authorization: "Bearer " + res.data.data.token,
-          },
-          data: {
-            username: userName,
-          },
-        })
-          .then((data) => {
-            const infoUser = data.data.data.data.find((user: any) => {
-              return user.username === userName;
-            });
-            dispatch({
-              type: "SIGNIN",
-              payload: infoUser.id,
-            });
-          })
-          .catch(() => {});
       })
       .catch((err) => toast("Đăng nhập thất bại"));
   };
@@ -119,6 +83,7 @@ const SignIn = () => {
                 required: true,
                 minLength: 8,
                 maxLength: 16,
+                // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
               })}
             />
             <p className={styles.showPassword} onClick={handleShowPassWord}>
@@ -137,14 +102,10 @@ const SignIn = () => {
         <>
           <label htmlFor="company_id">Factory:</label>
           <FormControl className={styles.formControl}>
-            {/* <InputLabel id="demo-simple-select-label">Age</InputLabel> */}
             <Select
               className={styles.select}
               {...register("company_id", { required: true })}
             >
-              {/* <MenuItem className={styles.menuItem} value="">
-                <em>None</em>
-              </MenuItem> */}
               <MenuItem className={styles.menuItem} value={1}>
                 SBM
               </MenuItem>

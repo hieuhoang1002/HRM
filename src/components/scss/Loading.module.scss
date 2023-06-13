@@ -1,0 +1,20 @@
+.LoadingContainer {
+  padding: 20% 46px 0 329px;
+  .loading {
+    margin-left: 50%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgb(0, 168, 194);
+    border-right: 3px solid transparent;
+    border-left: 3px solid transparent;
+    animation: spinner 0.7s infinite ease-in-out;
+  }
+  @keyframes spinner {
+    from {
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

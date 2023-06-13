@@ -61,7 +61,7 @@ const AddEmployee = () => {
     {
       id: 2,
       label: "Employment Details",
-      content: <EmployeeDetails />,
+      content: <EmployeeDetails res={""} />,
     },
     { id: 3, label: "Salary & Wages", content: <Salary /> },
     { id: 4, label: "Others", content: <Other /> },
@@ -77,7 +77,9 @@ const AddEmployee = () => {
       },
       data: {
         account_user_id: null,
-        attendance_allowance_paid: true,
+        attendance_allowance_paid: methods.getValues(
+          "attendance_allowance_paid"
+        ),
         audit_salary: methods.getValues("salaryAudit"),
         bank_account_no: methods.getValues("bankAcc"),
         bank_name: methods.getValues("bankName"),
@@ -92,7 +94,7 @@ const AddEmployee = () => {
         dob: methods.getValues("birth"),
         document_upload: null,
         documents: [],
-        entitle_ot: false,
+        entitle_ot: methods.getValues("entitle_ot"),
         family_card_number: methods.getValues("familyCard"),
         gender: methods.getValues("gender"),
         grade: "",
@@ -104,12 +106,14 @@ const AddEmployee = () => {
         ktp_no: methods.getValues("ktp"),
         marriage_id: methods.getValues("marriage"),
         meal_allowance: methods.getValues("mealAllowance"),
-        meal_allowance_paid: false,
+        meal_allowance_paid: methods.getValues("meal_allowance_paid"),
         mobile_no: methods.getValues("mobile"),
         mother_name: methods.getValues("motherName"),
         name: methods.getValues("name"),
         nc_id: methods.getValues("notional"),
-        operational_allowance_paid: true,
+        operational_allowance_paid: methods.getValues(
+          "operational_allowance_paid"
+        ),
         pob: methods.getValues("place"),
         position_id: methods.getValues("positionId"),
         remark: methods.getValues("remark"),
@@ -117,7 +121,7 @@ const AddEmployee = () => {
         safety_insurance_no: methods.getValues("safety"),
         staff_id: "",
         tel_no: methods.getValues("tel"),
-        type: "1",
+        type: methods.getValues("type"),
         user: null,
         userAccount: null,
       },
@@ -141,9 +145,6 @@ const AddEmployee = () => {
               handleSubmitBtn={handleSubmitBtn}
               name="Add"
             />
-            {methods.formState.isSubmitting && (
-              <div style={{ background: "red" }}>Submitting...</div>
-            )}
 
             {methods.formState.isSubmitSuccessful && (
               <Alert severity="success">Record added</Alert>
@@ -169,9 +170,7 @@ const AddEmployee = () => {
         </form>
       </FormProvider>
 
-      <div className={styles.copyright}>
-        Copyright © 2022. All Rights Reserved
-      </div>
+      <div className={styles.footer}>Copyright © 2022. All Rights Reserved</div>
     </div>
   );
 };

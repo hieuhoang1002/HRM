@@ -15,6 +15,8 @@ import PrivateRoute from "./PrivateRoute";
 import AddEmployee from "./pages/pageManagement/Employee/AddNewEmployee/AddEmployee";
 import GlobalSettings from "./pages/pageManagement/GlobalSettings";
 import EditEmployee from "./pages/pageManagement/Employee/AddNewEmployee/EditEmployee";
+import Settings from "./pages/pageManagement/Settings/Settings";
+import ChangePassWord from "./pages/pageManagement/Settings/ChangePassWord";
 
 const ConfigRoutes = () => {
   return (
@@ -29,14 +31,15 @@ const ConfigRoutes = () => {
           <Route path={ROUTES.leave} element={<Leave />} />
           <Route path={ROUTES.payroll} element={<Payroll />} />
           <Route path={ROUTES.employee} element={<Employee />} />
-
           <Route path={ROUTES.user} element={<User />} />
           <Route path={ROUTES.master} element={<Master />} />
-
           <Route path={ROUTES.globalsettings} element={<GlobalSettings />} />
+          <Route path={ROUTES.settings} element={<Settings />} />
 
           <Route path={ROUTES.addemployee} element={<AddEmployee />} />
           <Route path={ROUTES.editemployee} element={<EditEmployee />} />
+
+          <Route path={ROUTES.changepassword} element={<ChangePassWord />} />
         </Route>
       </Route>
     </Routes>
