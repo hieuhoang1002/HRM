@@ -1,3 +1,43 @@
+export interface data {
+  isChecked: boolean;
+  id: string;
+  staff_id: string;
+  gender: string;
+  name: string;
+  card_number: string;
+  bank_account_no: string;
+  family_card_number: string;
+  marriage_code: string;
+  mother_name: string;
+  dob: string;
+  home_address_1: string;
+  home_address_2: string;
+  nc_id: string;
+  contract_start_date: string;
+  contract_first: string;
+  contract_second: string;
+  contract_end: string;
+  department_name: string;
+  type: string;
+  basic_salary: string;
+  position_name: string;
+  entitle_ot: string;
+  meal_allowance_paid: string;
+  grade_name: string;
+}
+
+export interface paginate {
+  current_page: number;
+  per_page: number;
+  from: number;
+  to: number;
+  total: number;
+  first_page_url: string;
+  last_page_url: string;
+  pre_page_url: string;
+  next_page_url: string;
+}
+
 export const TH = [
   "NIK",
   "Gender",

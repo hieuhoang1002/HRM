@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/Table/Table.module.scss";
 import axios from "axios";
 import { API } from "../../../../configAPI";
-import { DATAS, TH } from "./configTable";
+import { DATAS, TH, data, paginate } from "./configTable";
 import { Checkbox } from "@material-ui/core";
 import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 import { useSearchParams } from "react-router-dom";
@@ -11,6 +11,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import Loading from "../../../../components/component/Loading";
 
 const useStyles = makeStyles({
   root: {
@@ -21,46 +22,6 @@ const useStyles = makeStyles({
   },
   checked: {},
 });
-
-interface data {
-  isChecked: boolean;
-  id: string;
-  staff_id: string;
-  gender: string;
-  name: string;
-  card_number: string;
-  bank_account_no: string;
-  family_card_number: string;
-  marriage_code: string;
-  mother_name: string;
-  dob: string;
-  home_address_1: string;
-  home_address_2: string;
-  nc_id: string;
-  contract_start_date: string;
-  contract_first: string;
-  contract_second: string;
-  contract_end: string;
-  department_name: string;
-  type: string;
-  basic_salary: string;
-  position_name: string;
-  entitle_ot: string;
-  meal_allowance_paid: string;
-  grade_name: string;
-}
-
-interface paginate {
-  current_page: number;
-  per_page: number;
-  from: number;
-  to: number;
-  total: number;
-  first_page_url: string;
-  last_page_url: string;
-  pre_page_url: string;
-  next_page_url: string;
-}
 
 type ArrayType<T> = {
   [Property in keyof T]: T[Property];
@@ -76,7 +37,13 @@ type propsTable = {
 >;
 
 const Table = (props: propsTable) => {
-  // ========================================================
+  const [loading, setLoading] = useState(true);
+
+  React.useEffect(() => {
+    setTimeout(() => setLoading(false), 1000);
+  }, []);
+
+  const classes = useStyles();
 
   const [res, setRes] = useState<ArrayType<data>[] | null>(props.res);
 
@@ -90,13 +57,10 @@ const Table = (props: propsTable) => {
     return { page: "1", search: "", ...Object.fromEntries([...searchAPI]) };
   }, [searchAPI]);
 
-  // console.log(searchParams);
-  // const currentPage = paginate[0].current_page;
   const perPage = paginate[0].per_page;
   const totalPage = paginate[0].total;
   const nPage = Math.ceil(totalPage / perPage);
   const numbers = [...Array(nPage + 1).keys()].slice(1);
-  // console.log(numbers.length);
   const toPage = paginate[0].to;
   const fromPgae = paginate[0].from;
 
@@ -312,126 +276,131 @@ const Table = (props: propsTable) => {
     window.open(`employee/create-or-update/${id}`, "_self");
   };
 
-  const classes = useStyles();
   return (
-    <div className={styles.container}>
-      <Item
-        handleDeleteChange={handleDeleteChange}
-        activeDelete={activeDelete}
-      />
-      <hr />
-      <div className={styles.containerTable}>
-        <div className={styles.containerHeader}>
-          <div className={styles.checkboxHeader}>
-            <Checkbox
-              name="MyCheckboxAll"
-              classes={{
-                root: classes.root,
-                checked: classes.checked,
-              }}
-              indeterminate={
-                arrId.length < toPage - fromPgae + 1 && arrId.length > 0
-                  ? true
-                  : false
-              }
-              checked={
-                res.filter((item) => item?.isChecked !== true).length < 1
-              }
-              onChange={handleCheckboxChange}
-            />
-          </div>
-
-          {TH.map((th, i) => (
-            <div key={"th" + i} className={styles.item}>
-              {th}
-            </div>
-          ))}
-        </div>
-
-        {res
-          ? res.map((item: data, i: any) => (
-              <div
-                className={styles.containerContent}
-                key={"table" + i}
-                onDoubleClick={handleDoubleClick}
-                data-id={item["id"]}
-              >
-                <div className={styles.checkboxContent}>
-                  <Checkbox
-                    id={item["id"].toString()}
-                    name={item["staff_id"]}
-                    classes={{
-                      root: classes.root,
-                      checked: classes.checked,
-                    }}
-                    checked={item?.isChecked || false}
-                    onChange={handleCheckboxChange}
-                  />
-                </div>
-
-                <div className={styles.nik}>{item["staff_id"]}</div>
-
-                <div className={styles.content}>
-                  {parseInt(item["gender"]) === 0 ? "Male" : "Female"}
-                </div>
-                {DATAS.map(
-                  (data, i): React.ReactNode =>
-                    data === "type" ? (
-                      <div className={styles.content} key={"data" + i}>
-                        {parseInt(item["type"]) === 0
-                          ? "Permanent"
-                          : parseInt(item["type"]) === 1
-                          ? "Part-time"
-                          : "Contract"}
-                      </div>
-                    ) : data === "entitle_ot" ? (
-                      <div className={styles.content} key={"data" + i}>
-                        {parseInt(item["entitle_ot"]) === 1
-                          ? "Yes"
-                          : parseInt(item["entitle_ot"]) === 0
-                          ? "No"
-                          : ""}
-                      </div>
-                    ) : data === "meal_allowance_paid" ? (
-                      <div className={styles.content} key={"data" + i}>
-                        {parseInt(item["meal_allowance_paid"]) === 1
-                          ? "Yes"
-                          : parseInt(item["meal_allowance_paid"]) === 0
-                          ? "No"
-                          : ""}
-                      </div>
-                    ) : (
-                      <div className={styles.content} key={"data" + i}>
-                        {item[data]}
-                      </div>
-                    )
-                )}
-              </div>
-            ))
-          : ""}
-      </div>
-
-      {paginate
-        ? paginate.map((item: paginate, i: number) => (
-            <div key={"paginate" + i} className={styles.paginate}>
-              <div>
-                <Pagination
-                  showFirstButton
-                  showLastButton
-                  className={styles.pagination}
-                  count={numbers.length}
-                  page={Number(searchParams.page)}
-                  onChange={handleNumberCurrentPage}
+    <>
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className={styles.container}>
+          <Item
+            handleDeleteChange={handleDeleteChange}
+            activeDelete={activeDelete}
+          />
+          <hr />
+          <div className={styles.containerTable}>
+            <div className={styles.containerHeader}>
+              <div className={styles.checkboxHeader}>
+                <Checkbox
+                  name="MyCheckboxAll"
+                  classes={{
+                    root: classes.root,
+                    checked: classes.checked,
+                  }}
+                  indeterminate={
+                    arrId.length < toPage - fromPgae + 1 && arrId.length > 0
+                      ? true
+                      : false
+                  }
+                  checked={
+                    res.filter((item) => item?.isChecked !== true).length < 1
+                  }
+                  onChange={handleCheckboxChange}
                 />
               </div>
 
-              <div className={styles.allPage}>
-                {item.from} - {item.to} of {item.total}
-              </div>
+              {TH.map((th, i) => (
+                <div key={"th" + i} className={styles.item}>
+                  {th}
+                </div>
+              ))}
             </div>
-          ))
-        : ""}
-    </div>
+
+            {res
+              ? res.map((item: data, i: any) => (
+                  <div
+                    className={styles.containerContent}
+                    key={"table" + i}
+                    onDoubleClick={handleDoubleClick}
+                    data-id={item["id"]}
+                  >
+                    <div className={styles.checkboxContent}>
+                      <Checkbox
+                        id={item["id"].toString()}
+                        name={item["staff_id"]}
+                        classes={{
+                          root: classes.root,
+                          checked: classes.checked,
+                        }}
+                        checked={item?.isChecked || false}
+                        onChange={handleCheckboxChange}
+                      />
+                    </div>
+
+                    <div className={styles.nik}>{item["staff_id"]}</div>
+
+                    <div className={styles.content}>
+                      {parseInt(item["gender"]) === 0 ? "Male" : "Female"}
+                    </div>
+                    {DATAS.map(
+                      (data, i): React.ReactNode =>
+                        data === "type" ? (
+                          <div className={styles.content} key={"data" + i}>
+                            {parseInt(item["type"]) === 0
+                              ? "Permanent"
+                              : parseInt(item["type"]) === 1
+                              ? "Part-time"
+                              : "Contract"}
+                          </div>
+                        ) : data === "entitle_ot" ? (
+                          <div className={styles.content} key={"data" + i}>
+                            {parseInt(item["entitle_ot"]) === 1
+                              ? "Yes"
+                              : parseInt(item["entitle_ot"]) === 0
+                              ? "No"
+                              : ""}
+                          </div>
+                        ) : data === "meal_allowance_paid" ? (
+                          <div className={styles.content} key={"data" + i}>
+                            {parseInt(item["meal_allowance_paid"]) === 1
+                              ? "Yes"
+                              : parseInt(item["meal_allowance_paid"]) === 0
+                              ? "No"
+                              : ""}
+                          </div>
+                        ) : (
+                          <div className={styles.content} key={"data" + i}>
+                            {item[data]}
+                          </div>
+                        )
+                    )}
+                  </div>
+                ))
+              : ""}
+          </div>
+
+          {paginate
+            ? paginate.map((item: paginate, i: number) => (
+                <div key={"paginate" + i} className={styles.paginate}>
+                  <div>
+                    <Pagination
+                      showFirstButton
+                      showLastButton
+                      className={styles.pagination}
+                      count={numbers.length}
+                      page={Number(searchParams.page)}
+                      onChange={handleNumberCurrentPage}
+                    />
+                  </div>
+
+                  <div className={styles.allPage}>
+                    {item.from} - {item.to} of {item.total}
+                  </div>
+                </div>
+              ))
+            : ""}
+        </div>
+      )}
+    </>
   );
 };
 

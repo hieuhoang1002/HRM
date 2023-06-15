@@ -1,12 +1,9 @@
 import React, { useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EmployeeInfor.module.scss";
 import InputText from "../../../../components/InputText";
-import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
-import BtnAdd from "./BtnAdd";
-import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
-import { type } from "os";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { FormControl, MenuItem, Select } from "@mui/material";
 
 const gender = [
   { id: "0", name: "Male" },
@@ -44,19 +41,13 @@ const texts = [
 const EmployeeInfor = ({ res }) => {
   const {
     register,
-    watch,
     formState: { errors },
   } = useFormContext<IFormValues>();
 
-  const [ugender, setUgender] = useState<string>(() => {
-    console.log("reset");
-    return "";
-  });
-  const [umarriage, setUmarriage] = useState<string>("");
+  const [ugender, setUgender] = useState<string>(res?.gender);
+  const [umarriage, setUmarriage] = useState<string>(res?.marriage?.id);
 
-  console.log(ugender);
   React.useEffect(() => {
-    console.log(res?.gender);
     setUgender(res?.gender);
     setUmarriage(res?.marriage?.id);
   }, [res]);
@@ -122,14 +113,6 @@ const EmployeeInfor = ({ res }) => {
                   value={ugender}
                   onChange={(e) => setUgender(e.target.value)}
                 >
-                  {/* <MenuItem
-                    value="Choose Gender"
-                    selected
-                    disabled
-                    style={{ display: "none" }}
-                  >
-                    Choose Gender
-                  </MenuItem> */}
                   {gender.map((item, i: number) => (
                     <MenuItem
                       className={styles.menuItem}
@@ -172,7 +155,6 @@ const EmployeeInfor = ({ res }) => {
                 register={register}
                 required
               />
-              {/* <DatePicker /> */}
             </div>
           </div>
 

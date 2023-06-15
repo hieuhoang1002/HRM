@@ -21,7 +21,6 @@ const InputText = ({
 }: InputProps) => {
   return (
     <div className={styles.container}>
-      {/* <label htmlFor={label}>{label}</label> */}
       <input
         defaultValue={value}
         type={type}

@@ -18,7 +18,7 @@ const ContractInfor = ({ res }) => {
     formState: { errors },
   } = useFormContext<IFormValues>();
 
-  const [utype, setUtype] = useState<string>("");
+  const [utype, setUtype] = useState<string>(res?.type);
 
   React.useEffect(() => {
     setUtype(res?.type);

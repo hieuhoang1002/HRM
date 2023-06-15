@@ -32,7 +32,7 @@ const EditEmployee = () => {
 
   const methods = useForm<IFormValues>();
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormValues> = (data) => {};
 
   useEffect(() => {
     axios({
@@ -46,8 +46,6 @@ const EditEmployee = () => {
       .then((res) => setRes(res.data.data))
       .catch((err) => err);
   }, []);
-
-  // console.log(res);
 
   const menuItems = [
     {
@@ -139,6 +137,11 @@ const EditEmployee = () => {
     setTimeout(() => setLoading(false), 1500);
   }, []);
 
+  // const handleCheck = () => {
+  //   console.log(res);
+  //   console.log(methods.watch("gender"));
+  // };
+
   return (
     <>
       {loading ? (
@@ -153,6 +156,10 @@ const EditEmployee = () => {
             <form action="" onSubmit={methods.handleSubmit(onSubmit)}>
               <div className={styles.header}>
                 <p className={styles.title}>Employee Managenment</p>
+
+                {/* <button type="button" onClick={handleCheck}>
+                  BTN
+                </button> */}
                 <BtnAdd
                   submit="submit"
                   handleSubmitBtn={handleSubmitBtn}

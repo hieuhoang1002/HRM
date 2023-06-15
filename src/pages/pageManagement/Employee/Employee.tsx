@@ -7,58 +7,17 @@ import Loading from "../../../components/component/Loading";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
 import { API } from "../../../configAPI";
+import { data, paginate } from "./Table/configTable";
 
 const pathPage = [
   { name: "General", link: "/General" },
   { name: "Employee Management" },
 ];
 
-interface data {
-  isChecked: boolean;
-  id: string;
-  staff_id: string;
-  gender: string;
-  name: string;
-  card_number: string;
-  bank_account_no: string;
-  family_card_number: string;
-  marriage_code: string;
-  mother_name: string;
-  dob: string;
-  home_address_1: string;
-  home_address_2: string;
-  nc_id: string;
-  contract_start_date: string;
-  contract_first: string;
-  contract_second: string;
-  contract_end: string;
-  department_name: string;
-  type: string;
-  basic_salary: string;
-  position_name: string;
-  entitle_ot: string;
-  meal_allowance_paid: string;
-  grade_name: string;
-}
-
-interface paginate {
-  current_page: number;
-  per_page: number;
-  from: number;
-  to: number;
-  total: number;
-  first_page_url: string;
-  last_page_url: string;
-  pre_page_url: string;
-  next_page_url: string;
-}
-
 type ArrayType<T> = {
   [Property in keyof T]: T[Property];
 };
 const Employee = () => {
-  const [loading, setLoading] = useState(true);
-
   const [searchAPI, setSearchParams] = useSearchParams();
   const searchParams = useMemo(() => {
     return { page: "", search: "", ...Object.fromEntries([...searchAPI]) };
@@ -179,41 +138,30 @@ const Employee = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  React.useEffect(() => {
-    setTimeout(() => setLoading(false), 1000);
-  }, []);
   return (
-    <>
-      {loading ? (
-        <Loading />
-      ) : (
-        <div className={styles.container}>
-          <Pathpage pathPage={pathPage} />
-          <div className={styles.titleAndsearch}>
-            <p className={styles.title}>Employee Managenment</p>
-            <div className={styles.search}>
-              <div>
-                <BsSearch className={styles.icon} />
-              </div>
-              <input
-                type="text"
-                placeholder="Search"
-                value={search}
-                onChange={(e) => handleSearchCurrentpage(e.target.value)}
-              />
-            </div>
+    <div className={styles.container}>
+      <Pathpage pathPage={pathPage} />
+      <div className={styles.titleAndsearch}>
+        <p className={styles.title}>Employee Managenment</p>
+        <div className={styles.search}>
+          <div>
+            <BsSearch className={styles.icon} />
           </div>
-
-          <div className={styles.containertable}>
-            <Table search={search} res={res} paginate={paginate} />
-          </div>
-
-          <div className={styles.copyright}>
-            Copyright © 2022. All Rights Reserved
-          </div>
+          <input
+            type="text"
+            placeholder="Search"
+            value={search}
+            onChange={(e) => handleSearchCurrentpage(e.target.value)}
+          />
         </div>
-      )}
-    </>
+      </div>
+
+      <div className={styles.containertable}>
+        <Table search={search} res={res} paginate={paginate} />
+      </div>
+
+      <div className={styles.footer}>Copyright © 2022. All Rights Reserved</div>
+    </div>
   );
 };
 
