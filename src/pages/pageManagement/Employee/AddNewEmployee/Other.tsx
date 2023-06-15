@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BsUpload } from "react-icons/bs";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/Other.module.scss";
 import { useFormContext } from "react-hook-form";
@@ -58,11 +58,27 @@ const Other = () => {
 
   const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
+
+  const [benefit, setBenefit] = useState<any>();
   const {
     register,
     formState: { errors },
   } = useFormContext<IFormValues>();
 
+  useEffect(() => {
+    axios({
+      method: "GET",
+      baseURL: API,
+      url: "/benefit?grade_id=undefined",
+      headers: {
+        Authorization: "Bearer " + localStorage.getItem("CheckToken"),
+      },
+    })
+      .then((res) => setBenefit(res.data.data))
+      .catch((err) => err);
+  }, []);
+
+  console.log(benefit);
   const handleOptionGrade = (e) => {
     // console.log(e.target.value);
     if (e) {
@@ -96,13 +112,14 @@ const Other = () => {
     const {
       target: { value },
     } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
+    setPersonName(typeof value === "string" ? value.split(",") : value);
   };
+
   return (
     <div className={styles.container}>
+      {/* {benefit?.map((item) => (
+        <div style={{ color: "black" }}>{item.name}</div>
+      ))} */}
       <div className={styles.header}>
         <div className={styles.title}>Others</div>
         <div className={styles.required}>
@@ -154,13 +171,13 @@ const Other = () => {
               )}
               MenuProps={MenuProps}
             >
-              {OPTIONSBENEFIT.map((options) => (
+              {benefit?.map((options) => (
                 <MenuItem
                   className={styles.menuItem}
-                  key={options.value}
-                  value={options.value}
+                  key={options.id}
+                  value={options.name}
                 >
-                  {options.label}
+                  {options.name}
                 </MenuItem>
               ))}
             </Select>

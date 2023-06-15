@@ -3,6 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 import ConfigRoutes from "./ConfigRoutes";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <header className="App-header">
         <ConfigRoutes />
       </header>
+      <ToastContainer />
     </div>
   );
 }

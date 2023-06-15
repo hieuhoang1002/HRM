@@ -11,10 +11,13 @@ const EmployeeDetails = ({ res }) => {
     register,
     formState: { errors },
   } = useFormContext<IFormValues>();
+
   const [udepartment, setUdepartment] = useState<string>("");
+  const [upositionId, setUpositionId] = useState<string>("");
 
   React.useEffect(() => {
     setUdepartment(res?.department_id);
+    setUpositionId(res?.position_id);
   }, [res]);
   return (
     <div className={styles.container}>
@@ -67,6 +70,8 @@ const EmployeeDetails = ({ res }) => {
               <Select
                 className={styles.select}
                 {...register("positionId", { required: true })}
+                value={upositionId}
+                onChange={(e) => setUpositionId(e.target.value)}
               >
                 <MenuItem className={styles.menuItem} value="">
                   <em>N/A</em>
@@ -104,7 +109,7 @@ const EmployeeDetails = ({ res }) => {
             <input
               type="checkbox"
               checked={checked}
-              readOnly
+              disabled
               {...register("operational_allowance_paid")}
             />
             <span>Operational Allowance Paid</span>
@@ -114,7 +119,7 @@ const EmployeeDetails = ({ res }) => {
             <input
               type="checkbox"
               checked={checked}
-              readOnly
+              disabled
               {...register("attendance_allowance_paid")}
             />
             <span>Attendance Allowance Paid</span>

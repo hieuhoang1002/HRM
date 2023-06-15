@@ -1,11 +1,12 @@
 import React from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/BtnAdd.module.scss";
-import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
 
 type propsType = {
   submit: "submit" | "reset" | "button" | undefined;
   handleSubmitBtn: any;
   name: string;
+  styles: string;
 } & React.DetailedHTMLProps<
   React.HTMLAttributes<HTMLDivElement>,
   HTMLDivElement
@@ -14,15 +15,21 @@ type propsType = {
 const BtnAdd = (props: propsType) => {
   return (
     <div className={styles.container}>
-      {/* <Link to="/General/employee"> */}
-      <button
+      <Button
         type={props.submit}
         onClick={props.handleSubmitBtn}
-        className={props.name === "Add" ? styles.add : styles.saveChange}
+        className={
+          props.styles === "stylesRemoveAdd" &&
+          (props.name === "Add" || props.name === " Save Change")
+            ? styles.stylesRemoveadd
+            : (props.name === "Save Change" && props.styles === "stylesAdd") ||
+              (props.styles === "stylesAdd" && props.name === "Add")
+            ? styles.stylesAdd
+            : styles.stylesRemoveadd
+        }
       >
         {props.name}
-      </button>
-      {/* </Link> */}
+      </Button>
     </div>
   );
 };

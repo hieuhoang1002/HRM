@@ -32,7 +32,6 @@ const Header = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         setuserId(res.data.data.id);
         setUserName(res.data.data.username);
         setDepartment(res.data.data.department.name);

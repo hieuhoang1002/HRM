@@ -4,7 +4,7 @@ import InputText from "../../../../components/InputText";
 import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
 
-const Salary = () => {
+const Salary = ({ res }) => {
   const {
     register,
     formState: { errors },
@@ -31,7 +31,7 @@ const Salary = () => {
               Basic Salary<span>*</span>
             </label>
             <InputText
-              value={""}
+              value={res?.basic_salary}
               type="number"
               label="salary"
               register={register}
@@ -48,7 +48,7 @@ const Salary = () => {
               Basic Salary (Audit)<span>*</span>
             </label>
             <InputText
-              value={""}
+              value={res?.audit_salary}
               type="number"
               label="salaryAudit"
               register={register}
@@ -65,7 +65,7 @@ const Salary = () => {
               Safety Insurance Amount<span>*</span>
             </label>
             <InputText
-              value={""}
+              value={res?.safety_insurance}
               type="number"
               label="safetyAmount"
               register={register}
@@ -82,7 +82,7 @@ const Salary = () => {
               Healthy Insurance Amount<span>*</span>
             </label>
             <InputText
-              value={""}
+              value={res?.health_insurance}
               type="number"
               label="healthyAmount"
               register={register}
@@ -99,7 +99,7 @@ const Salary = () => {
               Meal Allowance<span>*</span>
             </label>
             <InputText
-              value={""}
+              value={res?.meal_allowance}
               type="number"
               label="mealAllowance"
               register={register}

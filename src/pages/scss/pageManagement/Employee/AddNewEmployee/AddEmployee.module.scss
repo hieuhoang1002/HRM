@@ -66,12 +66,20 @@
       letter-spacing: -0.01em;
 
       color: var(--color-blue);
+      text-transform: lowercase;
+      text-transform: capitalize;
     }
 
     .active {
       button {
         color: #fbfdff;
         background-color: var(--color-blue);
+      }
+    }
+    .error {
+      button {
+        background-color: rgb(255, 213, 213);
+        color: rgb(255, 49, 49);
       }
     }
   }

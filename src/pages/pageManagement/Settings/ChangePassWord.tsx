@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import axios from "axios";
 import { API } from "../../../configAPI";
+import { toast } from "react-toastify";
 
 const pathPage = [{ name: "General", link: "/General" }, { name: "Settings" }];
 const ChangePassWord = () => {
@@ -35,7 +36,11 @@ const ChangePassWord = () => {
         password_confirmation: watch("confirmPass"),
       },
     })
-      .then((res) => console.log(res))
+      .then((res) =>
+        toast.success("Success !", {
+          position: toast.POSITION.TOP_RIGHT,
+        })
+      )
       .catch((err) => err);
   };
 

@@ -1,5 +1,10 @@
 .container {
-  .add {
+  button {
+    text-transform: lowercase;
+    text-transform: capitalize;
+  }
+  .stylesRemoveadd {
+    cursor: context-menu;
     padding: 12px 20px;
     background: #e1e2e2;
     border: none;
@@ -9,8 +14,12 @@
     line-height: 150%;
     letter-spacing: -0.01em;
     color: #bbbbbb;
+    &:hover {
+      background: #e1e2e2;
+      color: #bbbbbb;
+    }
   }
-  .saveChange {
+  .stylesAdd {
     padding: 12px 20px;
     background: #1a9cff;
     border: none;
@@ -20,5 +29,9 @@
     line-height: 150%;
     letter-spacing: -0.01em;
     color: #ffffff;
+    &:hover {
+      color: #ffffff;
+      background: #0085ea;
+    }
   }
 }

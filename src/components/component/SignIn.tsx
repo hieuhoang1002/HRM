@@ -55,8 +55,6 @@ const SignIn = () => {
 
   return (
     <div className={styles.container}>
-      <ToastContainer />
-
       <Banner />
       <p>Sign In</p>
 
@@ -86,9 +84,13 @@ const SignIn = () => {
                 // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
               })}
             />
-            <p className={styles.showPassword} onClick={handleShowPassWord}>
-              {show ? <FaEye /> : <FaEyeSlash />}
-            </p>
+            {watch("password") ? (
+              <p className={styles.showPassword} onClick={handleShowPassWord}>
+                {show ? <FaEye /> : <FaEyeSlash />}
+              </p>
+            ) : (
+              ""
+            )}
           </div>
 
           {errors.password?.type === "required" && (

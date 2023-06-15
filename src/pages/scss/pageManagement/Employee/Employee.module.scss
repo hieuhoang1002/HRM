@@ -61,6 +61,7 @@
     }
 
     .icon {
+      margin-top: -5px;
       color: black;
       width: 14.67px;
       height: 14.67px;
@@ -78,9 +79,7 @@
       outline: none;
 
       &:focus {
-        // border: 1px solid rgb(0, 170, 255);
         color: var(--color-black);
-        // background-color: red;
       }
     }
   }

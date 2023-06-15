@@ -6,6 +6,7 @@ import { IFormValues } from "./interface";
 import BtnAdd from "./BtnAdd";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { type } from "os";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 const gender = [
   { id: "0", name: "Male" },
@@ -41,31 +42,24 @@ const texts = [
 ];
 
 const EmployeeInfor = ({ res }) => {
-  // console.log(res);
-  // const items = [
-  //   { label: "mobile", type: "number", value: res?.mobile_no },
-  //   { label: "tel", type: "number", value: res?.tel_no },
-  //   { label: "marriage", type: "text", form: "select" },
-  //   { label: "bankCard", type: "number", value: res?.card_number },
-  //   { label: "bankAcc", type: "number", value: res?.bank_account_no },
-  //   { label: "bankName", type: "text", value: res?.bank_name },
-  //   { label: "familyCard", type: "number", value: res?.family_card_number },
-  //   { label: "safety", type: "number", value: res?.safety_insurance_no },
-  //   { label: "health", type: "number", value: res?.health_insurance_no },
-  // ];
   const {
     register,
+    watch,
     formState: { errors },
   } = useFormContext<IFormValues>();
 
-  const [ugender, setUgender] = useState<string>("Choose Gender");
+  const [ugender, setUgender] = useState<string>(() => {
+    console.log("reset");
+    return "";
+  });
   const [umarriage, setUmarriage] = useState<string>("");
 
+  console.log(ugender);
   React.useEffect(() => {
+    console.log(res?.gender);
     setUgender(res?.gender);
     setUmarriage(res?.marriage?.id);
   }, [res]);
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -111,16 +105,7 @@ const EmployeeInfor = ({ res }) => {
                 required
                 type="text"
               />
-              {/* <input
-                type="text"
-                {...register(
-                  "inputTest",
-                  { required: true },
-                  { onBlur: () => console.log("Field blurred") }
-                )}
-              /> */}
             </div>
-            {/* {errors[name] ? <li>Please InputTest </li> : ""} */}
             {errors.name?.type === "required" && <li>Please input Name</li>}
           </div>
 
@@ -137,14 +122,14 @@ const EmployeeInfor = ({ res }) => {
                   value={ugender}
                   onChange={(e) => setUgender(e.target.value)}
                 >
-                  <MenuItem
+                  {/* <MenuItem
                     value="Choose Gender"
                     selected
                     disabled
                     style={{ display: "none" }}
                   >
                     Choose Gender
-                  </MenuItem>
+                  </MenuItem> */}
                   {gender.map((item, i: number) => (
                     <MenuItem
                       className={styles.menuItem}
@@ -187,6 +172,7 @@ const EmployeeInfor = ({ res }) => {
                 register={register}
                 required
               />
+              {/* <DatePicker /> */}
             </div>
           </div>
 

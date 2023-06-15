@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EditEmployee.module.scss";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../../../../configAPI";
 import Pathpage from "../../../../components/component/Pathpage";
 import EmployeeInfor from "./EmployeeInfor";
@@ -13,6 +13,8 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { IFormValues } from "./interface";
 import BtnAdd from "./BtnAdd";
 import Loading from "../../../../components/component/Loading";
+import { Button } from "@mui/material";
+import { toast } from "react-toastify";
 
 const pathPage = [
   { name: "General", link: "/General" },
@@ -20,6 +22,8 @@ const pathPage = [
   { name: "Edit employee" },
 ];
 const EditEmployee = () => {
+  const navigate = useNavigate();
+
   const { id } = useParams();
 
   const [res, setRes] = useState<any>();
@@ -61,7 +65,7 @@ const EditEmployee = () => {
       label: "Employment Details",
       content: <EmployeeDetails res={res} />,
     },
-    { id: 3, label: "Salary & Wages", content: <Salary /> },
+    { id: 3, label: "Salary & Wages", content: <Salary res={res} /> },
     { id: 4, label: "Others", content: <Other /> },
   ];
 
@@ -120,7 +124,12 @@ const EditEmployee = () => {
         userAccount: null,
       },
     })
-      .then((res) => {})
+      .then((res) => {
+        toast.success("Change saved !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        navigate("/General/employee");
+      })
       .catch((err) => err);
   };
 
@@ -148,6 +157,22 @@ const EditEmployee = () => {
                   submit="submit"
                   handleSubmitBtn={handleSubmitBtn}
                   name="Save Change"
+                  styles={
+                    methods.watch("name") &&
+                    methods.watch("gender") &&
+                    methods.watch("birth") &&
+                    methods.watch("ktp") &&
+                    methods.watch("notional") &&
+                    methods.watch("dateStart") &&
+                    methods.watch("type") &&
+                    methods.watch("salary") &&
+                    methods.watch("salaryAudit") &&
+                    methods.watch("safetyAmount") &&
+                    methods.watch("healthyAmount") &&
+                    methods.watch("mealAllowance")
+                      ? "stylesAdd"
+                      : "stylesRemoveAdd"
+                  }
                 />
                 {methods.formState.isSubmitting && (
                   <div style={{ background: "red" }}>Submitting...</div>
@@ -157,16 +182,112 @@ const EditEmployee = () => {
               <Alert severity="success">Record added</Alert>
             )} */}
               </div>
+
               <div className={styles.item}>
-                {menuItems.map((item) => (
-                  <div
-                    key={item.id}
-                    className={activeMenuItem === item.id ? styles.active : ""}
-                    onClick={() => setActiveMenuItem(item.id)}
+                <div
+                  onClick={() => setActiveMenuItem(0)}
+                  className={
+                    activeMenuItem === 0
+                      ? styles.active
+                      : methods.watch("name") &&
+                        methods.watch("gender") &&
+                        methods.watch("birth") &&
+                        methods.watch("ktp") &&
+                        methods.watch("notional")
+                      ? ""
+                      : styles.error
+                  }
+                >
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={methods.handleSubmit(onSubmit)}
                   >
-                    <button type="button">{item.label}</button>
-                  </div>
-                ))}
+                    Employee Information
+                  </Button>
+                </div>
+
+                <div
+                  onClick={() => setActiveMenuItem(1)}
+                  className={
+                    activeMenuItem === 1
+                      ? styles.active
+                      : (methods.watch("dateStart") === "" ||
+                          methods.watch("type") === "") &&
+                        (activeMenuItem === 0
+                          ? activeMenuItem === 0
+                          : activeMenuItem === 2
+                          ? activeMenuItem === 2
+                          : activeMenuItem === 3
+                          ? activeMenuItem === 3
+                          : activeMenuItem === 4)
+                      ? styles.error
+                      : ""
+                  }
+                >
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={methods.handleSubmit(onSubmit)}
+                  >
+                    Contract Information
+                  </Button>
+                </div>
+
+                <div
+                  onClick={() => setActiveMenuItem(2)}
+                  className={activeMenuItem === 2 ? styles.active : ""}
+                >
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={methods.handleSubmit(onSubmit)}
+                  >
+                    Employment Details
+                  </Button>
+                </div>
+
+                <div
+                  onClick={() => setActiveMenuItem(3)}
+                  className={
+                    activeMenuItem === 3
+                      ? styles.active
+                      : (methods.watch("salary")?.length === 0 ||
+                          methods.watch("salaryAudit")?.length === 0 ||
+                          methods.watch("safetyAmount")?.length === 0 ||
+                          methods.watch("healthyAmount")?.length === 0 ||
+                          methods.watch("mealAllowance")?.length === 0) &&
+                        (activeMenuItem === 0
+                          ? activeMenuItem === 0
+                          : activeMenuItem === 1
+                          ? activeMenuItem === 1
+                          : activeMenuItem === 2
+                          ? activeMenuItem === 2
+                          : activeMenuItem === 4)
+                      ? styles.error
+                      : ""
+                  }
+                >
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={methods.handleSubmit(onSubmit)}
+                  >
+                    Salary & Wages
+                  </Button>
+                </div>
+                <div
+                  onClick={() => setActiveMenuItem(4)}
+                  className={activeMenuItem === 4 ? styles.active : ""}
+                >
+                  <Button
+                    variant="contained"
+                    disableElevation
+                    onClick={methods.handleSubmit(onSubmit)}
+                  >
+                    Others
+                  </Button>
+                </div>
               </div>
 
               <div className={styles.containerContent}>
