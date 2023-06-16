@@ -144,17 +144,6 @@ const AddEmployee = () => {
             />
           </div>
           <div className={styles.item}>
-            {/* {menuItems.map((item) => (
-              <div
-                key={item.id}
-                className={activeMenuItem === item.id ? styles.active : ""}
-                onClick={() => setActiveMenuItem(item.id)}
-              >
-                <button type="button" onClick={methods.handleSubmit(onSubmit)}>
-                  {item.label}
-                </button>
-              </div>
-            ))} */}
             <div
               onClick={() => setActiveMenuItem(0)}
               className={
