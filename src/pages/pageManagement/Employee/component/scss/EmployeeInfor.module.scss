@@ -32,7 +32,6 @@
     display: flex;
     justify-content: space-between;
     margin: 10px 30px 0 30px;
-    // gap: 70px;
     & > div {
       display: flex;
       flex-direction: column;
@@ -116,16 +115,78 @@
       }
     }
 
-    .x {
+    .containerColumn2 {
       display: flex;
       flex-direction: row;
       gap: 16px;
-      // align-items: center;
+      margin-top: 10px;
       & > div {
         gap: 10px;
         & > div {
           height: 46px;
         }
+      }
+    }
+  }
+}
+@media (max-width: 1400px) {
+  .container {
+    .form {
+      & > div {
+        & > div {
+          & > div {
+            .input {
+              width: 220px;
+            }
+            .select {
+              width: 220px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media (max-width: 1300px) {
+  .container {
+    .form {
+      flex-direction: column;
+      & > div {
+        & > div {
+          & > div {
+            .input {
+              width: 300px;
+            }
+            .select {
+              width: 300px;
+            }
+          }
+        }
+      }
+      .containerColumn2 {
+        justify-content: space-between;
+      }
+    }
+  }
+}
+@media (max-width: 1000px) {
+  .container {
+    .form {
+      flex-direction: column;
+      & > div {
+        & > div {
+          & > div {
+            .input {
+              width: 270px;
+            }
+            .select {
+              width: 270px;
+            }
+          }
+        }
+      }
+      .containerColumn2 {
+        justify-content: space-between;
       }
     }
   }

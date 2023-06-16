@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-import ConfigRoutes from "./ConfigRoutes";
+import ConfigRoutes from "./ROUTER/ConfigRoutes";
 import { ToastContainer } from "react-toastify";
 
 function App() {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../scss/pageManagement/Employee/Item.module.scss";
 import { AiOutlineDelete } from "react-icons/ai";
-import Add from "../../../img/General/Employee/add.png";
+import Add from "../../../assets/img/General/Employee/add.png";
 import { Link } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 

@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import styles from "../scss/SignIn.module.scss";
+import styles from "./scss/SignIn.module.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Banner from "./Banner";
+import Banner from "../components/Banner";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 import axios from "axios";
-import { API } from "../../configAPI";
+import { API } from "../API/configAPI";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, FormControl, MenuItem, Select } from "@mui/material";
 
@@ -81,7 +81,6 @@ const SignIn = () => {
                 required: true,
                 minLength: 8,
                 maxLength: 16,
-                // pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
               })}
             />
             {watch("password") ? (
@@ -107,6 +106,7 @@ const SignIn = () => {
             <Select
               className={styles.select}
               {...register("company_id", { required: true })}
+              defaultValue={""}
             >
               <MenuItem className={styles.menuItem} value={1}>
                 SBM
@@ -134,10 +134,6 @@ const SignIn = () => {
           <Link to="/forgotPassword">Forgot Your Password?</Link>
         </div>
       </form>
-
-      {/* <Link to="/newPassWord">
-        <button>NewPassWord</button>
-      </Link> */}
     </div>
   );
 };

@@ -1,21 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { BsUpload } from "react-icons/bs";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/Other.module.scss";
+import styles from "./scss/Other.module.scss";
 import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
-import makeAnimated from "react-select/animated";
 import axios from "axios";
-import { API } from "../../../../configAPI";
-import { OPTIONSBENEFIT, OPTIONSGRADE } from "./OptionOther";
-import {
-  FormControl,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-} from "@mui/material";
+import { API } from "../../../../API/configAPI";
+import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
-import { Theme, useTheme } from "@mui/material/styles";
+
+export const OPTIONSGRADE = [
+  { id: 8, value: 8, label: "Tabitha Kutch PhD" },
+  { id: 6, value: 6, label: "Melissa Johnson" },
+  { id: 1, value: 1, label: "Danial Stoltenberg" },
+];
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -28,42 +26,21 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
-function getStyles(name: string, personName: readonly string[], theme: Theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
-const Other = () => {
+const Other = ({ res }) => {
   const [dataGrade, setDataGrade] = useState([]);
-  console.log(dataGrade);
 
-  const animatedComponents = makeAnimated();
-
-  const theme = useTheme();
   const [personName, setPersonName] = React.useState<string[]>([]);
 
   const [benefit, setBenefit] = useState<any>();
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<IFormValues>();
+
+  const [ugrade, setUrade] = useState<string>(res?.grade_id);
+  const [uremark, setUremark] = useState<string>(res?.remark);
+
+  React.useEffect(() => {
+    setUrade(res?.grade_id);
+    setUremark(res?.remark);
+  }, [res]);
+  const { register } = useFormContext<IFormValues>();
 
   useEffect(() => {
     axios({
@@ -78,11 +55,10 @@ const Other = () => {
       .catch((err) => err);
   }, []);
 
-  console.log(benefit);
   const handleOptionGrade = (e) => {
-    // console.log(e.target.value);
     if (e) {
       const value = e.target.value;
+      setUrade(value);
       axios({
         method: "GET",
         baseURL: API,
@@ -107,8 +83,8 @@ const Other = () => {
     } else {
     }
   };
+
   const handleOptionBenefit = (event: SelectChangeEvent<typeof personName>) => {
-    console.log(event);
     const {
       target: { value },
     } = event;
@@ -117,9 +93,6 @@ const Other = () => {
 
   return (
     <div className={styles.container}>
-      {/* {benefit?.map((item) => (
-        <div style={{ color: "black" }}>{item.name}</div>
-      ))} */}
       <div className={styles.header}>
         <div className={styles.title}>Others</div>
         <div className={styles.required}>
@@ -139,6 +112,7 @@ const Other = () => {
             <Select
               className={styles.selectGrade}
               {...register("gradeId")}
+              value={ugrade}
               onChange={handleOptionGrade}
             >
               {OPTIONSGRADE.map((options) => (
@@ -149,13 +123,8 @@ const Other = () => {
             </Select>
           </div>
 
-          {/* {dataGrade.map((data) => (
-            <div>{data.id}</div>
-          ))} */}
-
           <div>
             <label htmlFor="benefit">Benefit</label>
-
             <Select
               className={styles.selectBenefit}
               {...register("benefit")}
@@ -185,7 +154,13 @@ const Other = () => {
 
           <div>
             <label htmlFor="remark">Remark</label>
-            <textarea name="" id="remark" {...register("remark")}></textarea>
+            <textarea
+              name=""
+              id="remark"
+              {...register("remark")}
+              value={uremark}
+              onChange={(e) => setUremark(e.target.value)}
+            ></textarea>
           </div>
 
           <div>

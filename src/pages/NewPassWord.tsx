@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import styles from "../scss/SignIn.module.scss";
+import styles from "./scss/SignIn.module.scss";
 import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import Banner from "./Banner";
+import Banner from "../components/Banner";
 import { FaEyeSlash, FaEye } from "react-icons/fa";
 
 interface Inputs {
@@ -24,7 +24,7 @@ const NewPassWord = () => {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log("Data" + data);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {};
 
   return (
     <div className={styles.container}>
@@ -52,8 +52,6 @@ const NewPassWord = () => {
           {errors.newPassWord?.type === "minLength" && (
             <li>Password mus be 6 characters long</li>
           )}
-
-          {/* {console.log(watch("newPassWord"))} */}
         </>
 
         <>

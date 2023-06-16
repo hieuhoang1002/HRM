@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../scss/General/Profile.module.scss";
+import styles from "../scss/General/Profile.module.scss";
 import ModalSignOut from "./ModalSignOut";
 import { Link } from "react-router-dom";
 

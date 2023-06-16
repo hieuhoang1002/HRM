@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/ContractInfor.module.scss";
+import styles from "./scss/ContractInfor.module.scss";
 import InputText from "../../../../components/InputText";
 import { BsUpload } from "react-icons/bs";
 import { useFormContext } from "react-hook-form";
@@ -13,10 +13,7 @@ const EmployeeType = [
 ];
 
 const ContractInfor = ({ res }) => {
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<IFormValues>();
+  const { register } = useFormContext<IFormValues>();
 
   const [utype, setUtype] = useState<string>(res?.type);
 

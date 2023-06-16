@@ -1,7 +1,7 @@
 import React, { ChangeEvent } from "react";
 import styles from "./scss/InputText.module.scss";
 import { Path, UseFormRegister } from "react-hook-form";
-import { IFormValues } from "../pages/pageManagement/Employee/AddNewEmployee/interface";
+import { IFormValues } from "../pages/pageManagement/Employee/component/interface";
 
 type InputProps = {
   value: string;

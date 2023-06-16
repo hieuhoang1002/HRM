@@ -1,6 +1,6 @@
 import React from "react";
-import Header from "../components/component/General/Header";
-import SideBar from "../components/component/General/SideBar";
+import Header from "../components/General/Header";
+import SideBar from "../components/General/SideBar";
 import { Outlet } from "react-router-dom";
 
 const General = () => {

@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "../../img/Rectangle 4.png";
-import styles from "../scss/Banner.module.scss";
+import logo from "../assets/img/Rectangle 4.png";
+import styles from "./scss/Banner.module.scss";
 
 const Banner = () => {
   return (

@@ -2,11 +2,10 @@ import React, { useState, useMemo } from "react";
 import styles from "../../scss/pageManagement//Employee/Employee.module.scss";
 import { BsSearch } from "react-icons/bs";
 import Table from "./Table/Table";
-import Pathpage from "../../../components/component/Pathpage";
-import Loading from "../../../components/component/Loading";
+import Pathpage from "../../../components/Pathpage";
 import { useSearchParams } from "react-router-dom";
 import axios from "axios";
-import { API } from "../../../configAPI";
+import { API } from "../../../API/configAPI";
 import { data, paginate } from "./Table/configTable";
 
 const pathPage = [
@@ -135,7 +134,7 @@ const Employee = () => {
 
         setPaginate(arrPaginate);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   }, []);
 
   return (

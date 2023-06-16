@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/BtnAdd.module.scss";
+import styles from "./scss/BtnAdd.module.scss";
 import { Button } from "@mui/material";
 
 type propsType = {

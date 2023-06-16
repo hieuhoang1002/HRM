@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../scss/General/Header.module.scss";
-import logo from "../../../img/logoGeneral.png";
-import intlImg from "../../../img/intl.png";
+import styles from "../scss/General/Header.module.scss";
+import logo from "../../assets/img/logoGeneral.png";
+import intlImg from "../../assets/img/intl.png";
 import { IoIosArrowDown } from "react-icons/io";
 import Profile from "./Profile";
 import axios from "axios";
-import { API } from "../../../configAPI";
-import Dropdown from "react-bootstrap/Dropdown";
-import { DropdownButton } from "react-bootstrap";
-import { MenuItem, Select } from "@mui/material";
+import { API } from "../../API/configAPI";
 
 const Header = () => {
-  // const id = localStorage.getItem("id");
-  // console.log(id);
-  // const Token = localStorage.getItem("CheckToken");
-  // console.log(Token);
-
   const [showLanguage, setShowLanguage] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [userId, setuserId] = useState<number>();
@@ -36,7 +28,7 @@ const Header = () => {
         setUserName(res.data.data.username);
         setDepartment(res.data.data.department.name);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   }, []);
 
   const handleShow = () => {

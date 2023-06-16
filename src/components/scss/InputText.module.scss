@@ -28,3 +28,25 @@
     color: #006adc;
   }
 }
+
+@media (max-width: 1400px) {
+  .container {
+    input {
+      width: 220px;
+    }
+  }
+}
+@media (max-width: 1300px) {
+  .container {
+    input {
+      width: 300px;
+    }
+  }
+}
+@media (max-width: 1000px) {
+  .container {
+    input {
+      width: 270px;
+    }
+  }
+}

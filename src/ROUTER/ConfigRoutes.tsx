@@ -1,22 +1,22 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import SignIn from "./components/component/SignIn";
-import ForgotPassword from "./components/component/ForgotPassword";
-import NewPassWord from "./components/component/NewPassWord";
+import SignIn from "../pages/SignIn";
+import ForgotPassword from "../pages/ForgotPassword";
+import NewPassWord from "../pages/NewPassWord";
 import { ROUTES } from "./Routes";
-import General from "./pages/General";
-import Employee from "./pages/pageManagement/Employee/Employee";
-import Attendance from "./pages/pageManagement/Attendance";
-import Leave from "./pages/pageManagement/Leave";
-import Payroll from "./pages/pageManagement/Payroll";
-import User from "./pages/pageManagement/User";
-import Master from "./pages/pageManagement/Master";
+import General from "../pages/General";
+import Employee from "../pages/pageManagement/Employee/Employee";
+import Attendance from "../pages/pageManagement/Attendance";
+import Leave from "../pages/pageManagement/Leave";
+import Payroll from "../pages/pageManagement/Payroll";
+import User from "../pages/pageManagement/User";
+import Master from "../pages/pageManagement/Master";
 import PrivateRoute from "./PrivateRoute";
-import AddEmployee from "./pages/pageManagement/Employee/AddNewEmployee/AddEmployee";
-import GlobalSettings from "./pages/pageManagement/GlobalSettings";
-import EditEmployee from "./pages/pageManagement/Employee/AddNewEmployee/EditEmployee";
-import Settings from "./pages/pageManagement/Settings/Settings";
-import ChangePassWord from "./pages/pageManagement/Settings/ChangePassWord";
+import AddEmployee from "../pages/pageManagement/Employee/AddNewEmployee/AddEmployee";
+import GlobalSettings from "../pages/pageManagement/GlobalSettings";
+import EditEmployee from "../pages/pageManagement/Employee/EditEmployee/EditEmployee";
+import Settings from "../pages/pageManagement/Settings/Settings";
+import ChangePassWord from "../pages/pageManagement/Settings/ChangePassWord";
 
 const ConfigRoutes = () => {
   return (

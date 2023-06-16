@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "../../scss/pageManagement/Settings/ChangPassWord.module.scss";
-import Pathpage from "../../../components/component/Pathpage";
-import InputText from "../../../components/InputText";
+import Pathpage from "../../../components/Pathpage";
 import { useForm } from "react-hook-form";
-import { IFormValues } from "../Employee/AddNewEmployee/interface";
+import { IFormValues } from "../Employee/component/interface";
 import Button from "@mui/material/Button";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import axios from "axios";
-import { API } from "../../../configAPI";
+import { API } from "../../../API/configAPI";
 import { toast } from "react-toastify";
 
 const pathPage = [{ name: "General", link: "/General" }, { name: "Settings" }];

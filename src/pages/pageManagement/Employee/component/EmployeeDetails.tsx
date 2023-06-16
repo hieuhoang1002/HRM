@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EmployeeDetails.module.scss";
+import styles from "./scss/EmployeeDetails.module.scss";
 import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
 import { FormControl, MenuItem, Select } from "@mui/material";
@@ -7,17 +7,19 @@ import { FormControl, MenuItem, Select } from "@mui/material";
 const EmployeeDetails = ({ res }) => {
   const [checked, setChecked] = useState<boolean>(true);
 
-  const {
-    register,
-    formState: { errors },
-  } = useFormContext<IFormValues>();
+  const { register } = useFormContext<IFormValues>();
 
-  const [udepartment, setUdepartment] = useState<string>("");
-  const [upositionId, setUpositionId] = useState<string>("");
+  const [udepartment, setUdepartment] = useState<string>(res?.department_id);
+  const [upositionId, setUpositionId] = useState<string>(res?.position_id);
+  const [uentitleOt, setUentitleOt] = useState<string>(res?.entitle_ot);
+  const [umeal, setUmeal] = useState<string>(res?.meal_allowance_paid);
 
+  console.log(uentitleOt);
   React.useEffect(() => {
     setUdepartment(res?.department_id);
     setUpositionId(res?.position_id);
+    setUentitleOt(res?.entitle_ot);
+    setUmeal(res?.meal_allowance_paid);
   }, [res]);
   return (
     <div className={styles.container}>
@@ -94,14 +96,21 @@ const EmployeeDetails = ({ res }) => {
           <div>
             <input
               type="checkbox"
-              onClick={(e) => setChecked(!checked)}
+              onClick={() => setChecked(!checked)}
               {...register("entitle_ot")}
+              value={uentitleOt}
+              onChange={(e) => setUentitleOt(e.target.value)}
             />
             <span>Entitled OT</span>
           </div>
 
           <div>
-            <input type="checkbox" {...register("meal_allowance_paid")} />
+            <input
+              type="checkbox"
+              {...register("meal_allowance_paid")}
+              value={umeal}
+              onChange={(e) => setUmeal(e.target.value)}
+            />
             <span>Meal Allowance Paid</span>
           </div>
 

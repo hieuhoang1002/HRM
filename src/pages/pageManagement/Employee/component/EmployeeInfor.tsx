@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EmployeeInfor.module.scss";
+import styles from "./scss/EmployeeInfor.module.scss";
 import InputText from "../../../../components/InputText";
 import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
@@ -66,7 +66,7 @@ const EmployeeInfor = ({ res }) => {
 
       <div className={styles.form}>
         {/* Column 1 */}
-        <div>
+        <div className={styles.containerColumn1}>
           <div>
             {res ? (
               <div>
@@ -238,7 +238,7 @@ const EmployeeInfor = ({ res }) => {
         </div>
 
         {/* Column 2 */}
-        <div className={styles.x}>
+        <div className={styles.containerColumn2}>
           <div>
             {texts.map((text: string, i: number) => (
               <div key={"label" + i}>

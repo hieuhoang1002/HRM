@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { API } from "../../../configAPI";
-import styles from "../../scss/General/ModalSignOut.module.scss";
+import { API } from "../../API/configAPI";
+import styles from "../scss/General/ModalSignOut.module.scss";
 import { IoClose } from "react-icons/io5";
 
 type propModaleSignOut = {
@@ -35,7 +35,6 @@ const ModalSignOut = (props: propModaleSignOut) => {
           payload: "",
         });
         navigate("/");
-        console.log(res);
       })
       .catch((err) => err);
   };

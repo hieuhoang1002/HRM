@@ -1,18 +1,18 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/EditEmployee.module.scss";
+import styles from "./EditEmployee.module.scss";
 import { useNavigate, useParams } from "react-router-dom";
-import { API } from "../../../../configAPI";
-import Pathpage from "../../../../components/component/Pathpage";
-import EmployeeInfor from "./EmployeeInfor";
-import ContractInfor from "./ContractInfor";
-import EmployeeDetails from "./EmployeeDetails";
-import Salary from "./Salary";
-import Other from "./Other";
+import { API } from "../../../../API/configAPI";
+import Pathpage from "../../../../components/Pathpage";
+import EmployeeInfor from "../component/EmployeeInfor";
+import ContractInfor from "../component/ContractInfor";
+import EmployeeDetails from "../component/EmployeeDetails";
+import Salary from "../component/Salary";
+import Other from "../component/Other";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { IFormValues } from "./interface";
-import BtnAdd from "./BtnAdd";
-import Loading from "../../../../components/component/Loading";
+import { IFormValues } from "../component/interface";
+import BtnAdd from "../component/BtnAdd";
+import Loading from "../../../../components/Loading";
 import { Button } from "@mui/material";
 import { toast } from "react-toastify";
 
@@ -45,7 +45,7 @@ const EditEmployee = () => {
     })
       .then((res) => setRes(res.data.data))
       .catch((err) => err);
-  }, []);
+  }, [id]);
 
   const menuItems = [
     {
@@ -64,7 +64,7 @@ const EditEmployee = () => {
       content: <EmployeeDetails res={res} />,
     },
     { id: 3, label: "Salary & Wages", content: <Salary res={res} /> },
-    { id: 4, label: "Others", content: <Other /> },
+    { id: 4, label: "Others", content: <Other res={res} /> },
   ];
 
   const handleSubmitBtn = () => {
@@ -82,7 +82,6 @@ const EditEmployee = () => {
         bank_account_no: methods.getValues("bankAcc"),
         bank_name: methods.getValues("bankName"),
         basic_salary: methods.getValues("salary"),
-        benefits: [123],
         card_number: methods.getValues("bankCard"),
         company_id: 1,
         contract_start_date: methods.getValues("dateStart"),
@@ -137,15 +136,10 @@ const EditEmployee = () => {
     setTimeout(() => setLoading(false), 1500);
   }, []);
 
-  // const handleCheck = () => {
-  //   console.log(res);
-  //   console.log(methods.watch("gender"));
-  // };
-
   return (
     <>
       {loading ? (
-        <Loading />
+        <Loading name="loadingEditEmployee" />
       ) : (
         <div className={styles.container}>
           <Pathpage pathPage={pathPage} />

@@ -1,10 +1,10 @@
 import React from "react";
-import Banner from "./Banner";
-import styles from "../scss/ForgotPassword.module.scss";
+import Banner from "../components/Banner";
+import styles from "./scss/ForgotPassword.module.scss";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { API } from "../../configAPI";
+import { API } from "../API/configAPI";
 
 interface Inputs {
   email: string;
@@ -29,8 +29,8 @@ const ForgotPassword = () => {
         email: email,
       },
     })
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((res) => {})
+      .catch((err) => err);
   };
 
   return (

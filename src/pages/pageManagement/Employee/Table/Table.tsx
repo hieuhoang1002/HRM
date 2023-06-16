@@ -1,17 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
 import styles from "../../../scss/pageManagement/Employee/Table/Table.module.scss";
 import axios from "axios";
-import { API } from "../../../../configAPI";
+import { API } from "../../../../API/configAPI";
 import { DATAS, TH, data, paginate } from "./configTable";
 import { Checkbox } from "@material-ui/core";
-import { AiOutlineDoubleLeft, AiOutlineDoubleRight } from "react-icons/ai";
 import { useSearchParams } from "react-router-dom";
 import Item from "../Item";
 import { makeStyles } from "@material-ui/core/styles";
 import Pagination from "@mui/material/Pagination";
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Loading from "../../../../components/component/Loading";
+import Loading from "../../../../components/Loading";
 
 const useStyles = makeStyles({
   root: {
@@ -77,13 +74,12 @@ const Table = (props: propsTable) => {
         page: nPage.toString(),
       });
     }
-  }, [searchParams, nPage]);
+  }, [searchParams, nPage, setSearchParams]);
 
   useEffect(() => {
     handleApiPage(Number(searchParams.page || 1), searchParams.search || "");
   }, [searchParams]);
 
-  // console.log(searchParams.page);
   // ================================================================
 
   // Handle Phân Trang
@@ -145,7 +141,7 @@ const Table = (props: propsTable) => {
 
         setPaginate(arrPaginate);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   const handleNumberCurrentPage = (event, currentPage: number) => {
@@ -153,7 +149,6 @@ const Table = (props: propsTable) => {
       ...searchParams,
       page: currentPage.toString(),
     });
-    // console.log(event);
   };
 
   // =============================================================
@@ -266,9 +261,9 @@ const Table = (props: propsTable) => {
 
             setPaginate(arrPaginate);
           })
-          .catch((err) => console.log(err))
+          .catch((err) => err)
       )
-      .catch((err) => console.log(err));
+      .catch((err) => err);
   };
 
   const handleDoubleClick = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -279,7 +274,7 @@ const Table = (props: propsTable) => {
   return (
     <>
       {loading ? (
-        <Loading />
+        <Loading name="loadingTable" />
       ) : (
         <div className={styles.container}>
           <Item

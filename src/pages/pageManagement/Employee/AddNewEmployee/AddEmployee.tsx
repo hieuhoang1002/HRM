@@ -1,18 +1,18 @@
 import React, { useState } from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/AddEmployee.module.scss";
-import EmployeeInfor from "./EmployeeInfor";
-import ContractInfor from "./ContractInfor";
-import EmployeeDetails from "./EmployeeDetails";
-import Salary from "./Salary";
-import Other from "./Other";
+import styles from "./AddEmployee.module.scss";
+import EmployeeInfor from "../component/EmployeeInfor";
+import ContractInfor from "../component/ContractInfor";
+import EmployeeDetails from "../component/EmployeeDetails";
+import Salary from "../component/Salary";
+import Other from "../component/Other";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { IFormValues } from "./interface";
-import BtnAdd from "./BtnAdd";
+import { IFormValues } from "../component/interface";
+import BtnAdd from "../component/BtnAdd";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { API } from "../../../../configAPI";
-import Pathpage from "../../../../components/component/Pathpage";
+import { API } from "../../../../API/configAPI";
+import Pathpage from "../../../../components/Pathpage";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
@@ -27,8 +27,6 @@ const AddEmployee = () => {
   const [activeMenuItem, setActiveMenuItem] = useState(0);
 
   const methods = useForm<IFormValues>();
-
-  console.log(methods);
 
   const onSubmit: SubmitHandler<IFormValues> = (data) => {};
 
@@ -45,7 +43,7 @@ const AddEmployee = () => {
       content: <EmployeeDetails res={""} />,
     },
     { id: 3, label: "Salary & Wages", content: <Salary res={""} /> },
-    { id: 4, label: "Others", content: <Other /> },
+    { id: 4, label: "Others", content: <Other res={""} /> },
   ];
 
   const handleSubmitBtn = () => {
@@ -65,7 +63,6 @@ const AddEmployee = () => {
         bank_account_no: methods.getValues("bankAcc"),
         bank_name: methods.getValues("bankName"),
         basic_salary: methods.getValues("salary"),
-        benefits: [123],
         card_number: methods.getValues("bankCard"),
         company_id: 1,
         contract_start_date: methods.getValues("dateStart"),

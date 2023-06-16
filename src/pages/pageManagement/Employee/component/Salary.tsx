@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "../../../scss/pageManagement/Employee/AddNewEmployee/Salary.module.scss";
+import styles from "./scss/Salary.module.scss";
 import InputText from "../../../../components/InputText";
-import { SubmitHandler, useForm, useFormContext } from "react-hook-form";
-import { IFormValues } from "./interface";
+import { useFormContext } from "react-hook-form";
+import { IFormValues } from "../component/interface";
 
 const Salary = ({ res }) => {
   const {
@@ -10,7 +10,6 @@ const Salary = ({ res }) => {
     formState: { errors },
   } = useFormContext<IFormValues>();
 
-  const onSubmit: SubmitHandler<IFormValues> = (data) => {};
   return (
     <div className={styles.container}>
       <div className={styles.header}>
