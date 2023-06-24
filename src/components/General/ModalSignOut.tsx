@@ -14,8 +14,6 @@ type propModaleSignOut = {
 >;
 
 const ModalSignOut = (props: propModaleSignOut) => {
-  // const id = localStorage.getItem("id");
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

@@ -5,6 +5,7 @@ import { BsUpload } from "react-icons/bs";
 import { useFormContext } from "react-hook-form";
 import { IFormValues } from "./interface";
 import { MenuItem, Select } from "@mui/material";
+import { IoTrashOutline } from "react-icons/io5";
 
 const EmployeeType = [
   { value: "0", label: "Permanent" },
@@ -61,9 +62,6 @@ const ContractInfor = ({ res }) => {
               value={utype}
               onChange={(e) => setUtype(e.target.value)}
             >
-              {/* <MenuItem value="" disabled selected style={{ display: "none" }}>
-                Choose Type
-              </MenuItem> */}
               {EmployeeType.map((options, i: number) => (
                 <MenuItem
                   key={"employeeType" + i}
@@ -111,8 +109,6 @@ const ContractInfor = ({ res }) => {
               </div>
             </div>
 
-            {/* <div className={styles.x}></div> */}
-
             <div className={styles.tableContract}>
               <table>
                 <thead>
@@ -129,7 +125,11 @@ const ContractInfor = ({ res }) => {
                     <td>1</td>
                     <td>Sản phẩm A</td>
                     <td>1/1/2023</td>
-                    <td>100.000 đồng</td>
+                    <td>
+                      <IoTrashOutline
+                        style={{ color: "red", fontSize: "15px" }}
+                      />
+                    </td>
                   </tr>
                 </tbody>
               </table>

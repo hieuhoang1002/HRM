@@ -8,6 +8,7 @@ import { API } from "../../../../API/configAPI";
 import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
 import Box from "@mui/material/Box";
 import Chip from "@mui/material/Chip";
+import { IoTrashOutline } from "react-icons/io5";
 
 export const OPTIONSGRADE = [
   { id: 8, value: 8, label: "Tabitha Kutch PhD" },
@@ -165,11 +166,6 @@ const Other = ({ res }) => {
 
           <div>
             <label htmlFor="">HRM User Account</label>
-            {/* <Select
-              className={styles.selectAccount}
-              placeholder=""
-              isDisabled
-            /> */}
           </div>
         </div>
       </div>
@@ -202,15 +198,16 @@ const Other = ({ res }) => {
                   <td>1</td>
                   <td>Sản phẩm A</td>
                   <td>1/1/2023</td>
-                  <td>100.000 đồng</td>
+                  <td>
+                    <IoTrashOutline
+                      style={{ color: "red", fontSize: "15px" }}
+                    />
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
         </div>
-
-        {/* <button type="submit">BTN</button> */}
-        {/* <Add type="submit" /> */}
       </div>
     </div>
   );

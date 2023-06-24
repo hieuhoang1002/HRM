@@ -5,6 +5,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { API } from "../API/configAPI";
+import { toast } from "react-toastify";
 
 interface Inputs {
   email: string;
@@ -29,7 +30,9 @@ const ForgotPassword = () => {
         email: email,
       },
     })
-      .then((res) => {})
+      .then((res) => {
+        toast("Success !");
+      })
       .catch((err) => err);
   };
 

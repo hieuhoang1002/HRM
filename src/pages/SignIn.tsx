@@ -20,6 +20,7 @@ interface Inputs {
 const SignIn = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState<boolean>(false);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const {
     register,
@@ -28,13 +29,25 @@ const SignIn = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {};
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsSubmitting(true);
+
+    try {
+      await handleLogin(data);
+    } catch (error) {
+      console.error(error);
+    }
+
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 1000);
+  };
 
   const handleShowPassWord = () => {
     setShow(!show);
   };
 
-  const handleLogin = () => {
+  const handleLogin = (data) => {
     axios({
       method: "POST",
       baseURL: API,
@@ -47,16 +60,27 @@ const SignIn = () => {
     })
       .then((res) => {
         localStorage.setItem("CheckToken", "Bearer " + res.data.data.token);
-        toast("Đăng nhập thành công");
-        navigate("/General");
+        setTimeout(() => {
+          toast("Đăng nhập thành công");
+          navigate("/General");
+        }, 1000);
       })
-      .catch((err) => toast("Đăng nhập thất bại"));
+      .catch((err) =>
+        setTimeout(() => {
+          toast("Đăng nhập thất bại");
+        }, 1000)
+      );
   };
-
   return (
     <div className={styles.container}>
       <Banner />
       <p>Sign In</p>
+
+      <div className={styles.user}>
+        <span>Username: hieu.hoangtrung</span>
+        <span>Password: 10022000</span>
+        <span>Factory: SBM</span>
+      </div>
 
       <form action="" className={styles.form} onSubmit={handleSubmit(onSubmit)}>
         <>
@@ -123,11 +147,20 @@ const SignIn = () => {
 
         <Button
           type="submit"
-          onClick={handleLogin}
           variant="contained"
-          className={styles.button}
+          className={isSubmitting === true ? styles.removeBtn : styles.button}
+          disabled={isSubmitting}
         >
-          Sign In
+          {isSubmitting ? (
+            <div className={styles.loading}>
+              <span>Loading</span>
+              <div className={styles.line}></div>
+              <div className={styles.line}></div>
+              <div className={styles.line}></div>
+            </div>
+          ) : (
+            "Sign in"
+          )}
         </Button>
 
         <div className={styles.forgotPassword}>

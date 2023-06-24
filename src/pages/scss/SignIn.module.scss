@@ -12,14 +12,31 @@
     font-size: 36px;
     line-height: 119.7%;
   }
+  .user {
+    position: absolute;
+    width: 250px;
+    height: 100px;
+    border: 1px solid black;
+    border-radius: 7px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: #ffffff;
+    top: 10px;
+    right: 10px;
+    span {
+      color: #000000;
+      margin-left: 10px;
+      font-size: 17px;
+    }
+  }
   form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: 24px 24px 32px;
-
     width: 348px;
-    // height: 450px;
     background: #fbfcfd;
     box-shadow: 0px 10px 25px rgba(215, 219, 223, 0.5);
     border-radius: 12px;
@@ -86,30 +103,18 @@
     }
 
     .button {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
       padding: 12px 24px;
-      gap: 10px;
-
       width: 300px;
       height: 48px;
-
       background: var(--color-blue);
       border: none;
       border-radius: 6px;
-
       font-weight: 400;
       font-size: 16px;
       line-height: 150%;
-
       letter-spacing: -0.01em;
-
       color: #fbfdff;
-
       margin-top: 16px;
-
       transition: all 0.3s;
 
       &:hover {
@@ -117,6 +122,54 @@
         transition: all 0.3s;
       }
     }
+    .removeBtn {
+      padding: 12px 24px;
+      width: 300px;
+      height: 48px;
+      background: rgb(210, 210, 210);
+      border: none;
+      border-radius: 6px;
+
+      margin-top: 16px;
+      .loading {
+        span {
+          font-weight: 400;
+          font-size: 16px;
+          color: #00a6ff;
+          margin-right: 5px;
+        }
+        .line {
+          display: inline-block;
+          width: 5px;
+          height: 5px;
+          border-radius: 50%;
+          background-color: #00a6ff;
+          margin-right: 5px;
+          &:nth-last-child(1) {
+            animation: loading 0.6s 0.1s linear infinite;
+          }
+          &:nth-last-child(2) {
+            animation: loading 0.6s 0.2s linear infinite;
+          }
+          &:nth-last-child(3) {
+            animation: loading 0.6s 0.3s linear infinite;
+          }
+
+          @keyframes loading {
+            0% {
+              transform: translate(0, 0);
+            }
+            50% {
+              transform: translate(0, -5px);
+            }
+            100% {
+              transform: translate(0, 0);
+            }
+          }
+        }
+      }
+    }
+
     .forgotPassword {
       font-weight: 500;
       font-size: 14px;
