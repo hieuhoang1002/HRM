@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.0e4f3290.css",
-    "main.js": "/static/js/main.be91c2a3.js",
-    "static/js/787.15b577d2.chunk.js": "/static/js/787.15b577d2.chunk.js",
-    "static/media/SVN-SofiaPro-Medium.woff2": "/static/media/SVN-SofiaPro-Medium.f29daefe0725dbae93c7.f29daefe0725dbae93c7.woff2",
-    "index.html": "/index.html",
-    "main.0e4f3290.css.map": "/static/css/main.0e4f3290.css.map",
-    "main.be91c2a3.js.map": "/static/js/main.be91c2a3.js.map",
-    "787.15b577d2.chunk.js.map": "/static/js/787.15b577d2.chunk.js.map"
+    "main.css": "/hieuhoang1002.github.io/HRM/static/css/main.dfb22f98.css",
+    "main.js": "/hieuhoang1002.github.io/HRM/static/js/main.76f238e3.js",
+    "static/js/787.15b577d2.chunk.js": "/hieuhoang1002.github.io/HRM/static/js/787.15b577d2.chunk.js",
+    "static/media/SVN-SofiaPro-Medium.woff2": "/hieuhoang1002.github.io/HRM/static/media/SVN-SofiaPro-Medium.f29daefe0725dbae93c7.f29daefe0725dbae93c7.woff2",
+    "index.html": "/hieuhoang1002.github.io/HRM/index.html",
+    "main.dfb22f98.css.map": "/hieuhoang1002.github.io/HRM/static/css/main.dfb22f98.css.map",
+    "main.76f238e3.js.map": "/hieuhoang1002.github.io/HRM/static/js/main.76f238e3.js.map",
+    "787.15b577d2.chunk.js.map": "/hieuhoang1002.github.io/HRM/static/js/787.15b577d2.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.0e4f3290.css",
-    "static/js/main.be91c2a3.js"
+    "static/css/main.dfb22f98.css",
+    "static/js/main.76f238e3.js"
   ]
 }
